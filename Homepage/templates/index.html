@@ -1,0 +1,73 @@
+{% extends 'base.html' %}
+
+{% block content %}
+     <div class="main-section">
+        <div class="intro-section">
+
+            <div class="nav-section">
+                <nav class="navbar navbar-expand-md bg-body-tertiary">
+                    <div class="container-fluid px-5 d-flex justify-content-around">
+                        <a class="navbar-brand" href="#">Pyshop</a>
+
+                        <form class="d-flex" role="search">
+                            <input class="form-control me-2" type="search" placeholder="Search products, brands and categories" aria-label="Search">
+                            <button class="btn btn-outline-primary" type="submit">Search</button>
+                        </form>
+
+                        <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                            data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                            aria-expanded="false" aria-label="Toggle navigation">
+                            <span class="navbar-toggler-icon"></span>
+                        </button>
+
+                        <div class="collapse navbar-collapse" id="navbarSupportedContent" style="flex-grow: 0;">
+                            <ul class="navbar-nav mb-2 mb-lg-0 d-flex justify-content-center">
+
+                                <li class="nav-item dropdown">
+                                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                                        aria-expanded="false">
+                                        Account
+                                    </a>
+                                    <ul class="dropdown-menu">
+                                        <li><button class="btn btn-primary dropdown-item" href="#">Sign in</button></li>
+                                        <li>
+                                            <hr class="dropdown-divider">
+                                        </li>
+                                        <li><a class="dropdown-item" href="#">My account</a></li>
+                                        <li><a class="dropdown-item" href="#">Orders</a></li>
+                                        <li><a class="dropdown-item" href="#">Saved items</a></li>
+                                    </ul>
+                                </li>
+
+                                <li class="nav-item dropdown">
+                                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                                        aria-expanded="false">
+                                        Help
+                                    </a>
+                                    <ul class="dropdown-menu">
+                                        <li><a class="dropdown-item" href="#">Help centre</a></li>
+                                        <li><a class="dropdown-item" href="#">Place an order</a></li>
+                                        <li><a class="dropdown-item" href="#">Payment options</a></li>
+                                        <li><a class="dropdown-item" href="#">Track an order</a></li>
+                                    </ul>
+                                </li>
+
+                                <li class="nav-item"></li>
+                                    <button class="btn btn-primary">Login</button>
+                                </li>
+
+                            </ul>
+                        </div>
+
+                    </div>
+                </nav>
+            </div>
+
+            <div class="display-section">
+
+            </div>
+
+
+        </div>
+    </div>
+{% endblock %}
