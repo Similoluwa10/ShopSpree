@@ -1,0 +1,36 @@
+
+:root{
+    --theme-color: rgb(240, 180, 49);
+    --theme-color-dim: rgb(227, 158, 9);
+}
+
+.nav-section{
+    margin-bottom: 50px;
+}
+
+.navbar-brand{
+    font-size: 29px;
+    font-weight: bold;
+}
+
+
+.form-control:focus{
+    border-color: var(--theme-color);
+    box-shadow: none;
+}
+
+.navbar-form-button{
+    border-color: var(--theme-color);
+    margin-right: 30px;
+}
+.navbar-form-button:hover{
+    background-color: var(--theme-color);
+    color: white;
+}
+
+.theme-color-button{
+    background: var(--theme-color);
+}
+.theme-color-button:hover{
+    background: var(--theme-color-dim);
+}
