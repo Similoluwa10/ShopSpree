@@ -1,138 +1,168 @@
 {% extends 'base.html' %}
 
 {% block content %}
-     <div class="main-section" height="800px">
+<div class="main-section" height="800px">
 
-        <div class="nav-section">
-            <nav class="navbar navbar-expand-md fixed-top bg-body-tertiary px-sm-5">
-                <div class="container-fluid d-flex justify-content-around">
-                    <a class="navbar-brand" href="#">Pyshop</a>
+    <div class="nav-section">
+        <nav class="navbar navbar-expand-md fixed-top bg-body-tertiary px-sm-5">
+            <div class="container-fluid d-flex justify-content-around">
+                <a class="navbar-brand" href="#">Pyshop</a>
 
-                    <form class="d-flex" role="search">
-                        <input class="form-control me-2" type="search"
-                            placeholder="Search products, brands and categories" aria-label="Search">
-                        <button class="btn navbar-form-button" type="submit">Search</button>
-                    </form>
+                <form class="d-flex" role="search">
+                    <input class="form-control me-2" type="search"
+                           placeholder="Search products, brands and categories" aria-label="Search">
+                    <button class="btn navbar-form-button" type="submit">Search</button>
+                </form>
 
-                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
                         data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
-                        <span class="navbar-toggler-icon"></span>
-                    </button>
+                    <span class="navbar-toggler-icon"></span>
+                </button>
 
-                    <div class="collapse navbar-collapse" id="navbarSupportedContent" style="flex-grow: 0;">
-                        <ul class="navbar-nav my-2 my-lg-0">
+                <div class="collapse navbar-collapse" id="navbarSupportedContent" style="flex-grow: 0;">
+                    <ul class="navbar-nav my-2 my-lg-0">
 
-                            <li class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
-                                    aria-expanded="false">
-                                    Account
-                                </a>
-                                <ul class="dropdown-menu">
-                                    <li class="dropdown-item">
-                                        <button class="btn theme-color-button" href="#">Sign in</button>
-                                    </li>
-                                    <li>
-                                        <hr class="dropdown-divider">
-                                    </li>
-                                    <li><a class="dropdown-item" href="#">My account</a></li>
-                                    <li><a class="dropdown-item" href="#">Orders</a></li>
-                                    <li><a class="dropdown-item" href="#">Saved items</a></li>
-                                </ul>
-                            </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                               aria-expanded="false">
+                                Account
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li class="dropdown-item">
+                                    <button class="btn theme-color-button" href="#">Sign in</button>
+                                </li>
+                                <li>
+                                    <hr class="dropdown-divider">
+                                </li>
+                                <li><a class="dropdown-item" href="#">My account</a></li>
+                                <li><a class="dropdown-item" href="#">Orders</a></li>
+                                <li><a class="dropdown-item" href="#">Saved items</a></li>
+                            </ul>
+                        </li>
 
-                            <li class="nav-item dropdown mx-2">
-                                <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
-                                    aria-expanded="false">
-                                    Help
-                                </a>
-                                <ul class="dropdown-menu">
-                                    <li><a class="dropdown-item" href="#">Help centre</a></li>
-                                    <li><a class="dropdown-item" href="#">Place an order</a></li>
-                                    <li><a class="dropdown-item" href="#">Payment options</a></li>
-                                    <li><a class="dropdown-item" href="#">Track an order</a></li>
-                                </ul>
-                            </li>
+                        <li class="nav-item dropdown mx-2">
+                            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                               aria-expanded="false">
+                                Help
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li><a class="dropdown-item" href="#">Help centre</a></li>
+                                <li><a class="dropdown-item" href="#">Place an order</a></li>
+                                <li><a class="dropdown-item" href="#">Payment options</a></li>
+                                <li><a class="dropdown-item" href="#">Track an order</a></li>
+                            </ul>
+                        </li>
 
-                            <li class="nav-item">
-                                <button class="btn theme-color-button">Login</button>
-                            </li>
+                        <li class="nav-item">
+                            <button class="btn theme-color-button">Login</button>
+                        </li>
 
-                        </ul>
-                    </div>
-
+                    </ul>
                 </div>
-            </nav>
-        </div>
 
-        <div class="intro-section">
-            <div class="product-listing-section"></div>
-
-            <div class="carousel-section p-5">
-                <div id="carouselExampleAutoplaying" data-bs-theme="dark" class="carousel slide carousel-fade px-5"
-                    data-bs-ride="carousel">
-
-                    <div class="carousel-indicators">
-                        <button type="button" data-bs-target="#carouselExampleAutoplaying" data-bs-slide-to="0"
-                            class="active bg-dark" aria-current="true" aria-label="Slide 1"></button>
-                        <button type="button" data-bs-target="#carouselExampleAutoplaying" data-bs-slide-to="1"
-                            aria-label="Slide 2"></button>
-                        <button type="button" data-bs-target="#carouselExampleAutoplaying" data-bs-slide-to="2"
-                            aria-label="Slide 3"></button>
-                    </div>
-
-                    <div class="carousel-inner">
-
-                        <div class="carousel-item active" data-bs-interval="2000">
-                            <img width="550px" height="350px"
-                                src="https://as2.ftcdn.net/v2/jpg/01/75/12/81/1000_F_175128190_W1OTg0ErVFa6lB3e101SFoW4HROpHsIe.jpg"
-                                class="d-block w-100" alt="...">
-                            <div class="carousel-caption d-none d-md-block">
-                                <h5>First slide label</h5>
-                                <p>Some representative placeholder content for the first slide.</p>
-                            </div>
-                        </div>
-
-                        <div class="carousel-item" data-bs-interval="2000">
-                            <img width="550px" height="350px"
-                                src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRkTaDfOQqIhJzigdvd5lz7GldWa1bJJP6bJA&s"
-                                class="d-block w-100" alt="...">
-                            <div class="carousel-caption d-none d-md-block">
-                                <h5>Second slide label</h5>
-                                <p>Some representative placeholder content for the second slide.</p>
-                            </div>
-                        </div>
-
-                        <div class="carousel-item" data-bs-interval="2000">
-                            <img width="550px" height="350px"
-                                src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR3QpxPne72Bom4VL_OC0NNryxqGA2YfDodlg&s"
-                                class="d-block w-100" alt="...">
-                            <div class="carousel-caption d-none d-md-block">
-                                <h5>Third slide label</h5>
-                                <p>Some representative placeholder content for the third slide.</p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleAutoplaying"
-                        data-bs-slide="prev">
-                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                        <span class="visually-hidden">Previous</span>
-                    </button>
-                    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleAutoplaying"
-                        data-bs-slide="next">
-                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                        <span class="visually-hidden">Next</span>
-                    </button>
-
-                </div>
             </div>
+        </nav>
+    </div>
 
-            <div class="animation-section"></div>
+    <!-- The intro section not completed, only carousel available!-->
+    <div class="intro-section">
+        <div class="product-listing-section"></div>
+
+        <div class="carousel-section p-5">
+            <div id="carouselExampleAutoplaying" data-bs-theme="dark" class="carousel slide carousel-fade px-5"
+                 data-bs-ride="carousel">
+
+                <div class="carousel-indicators">
+                    <button type="button" data-bs-target="#carouselExampleAutoplaying" data-bs-slide-to="0"
+                            class="active bg-dark" aria-current="true" aria-label="Slide 1"></button>
+                    <button type="button" data-bs-target="#carouselExampleAutoplaying" data-bs-slide-to="1"
+                            aria-label="Slide 2"></button>
+                    <button type="button" data-bs-target="#carouselExampleAutoplaying" data-bs-slide-to="2"
+                            aria-label="Slide 3"></button>
+                </div>
+
+                <div class="carousel-inner">
+
+                    <div class="carousel-item" data-bs-interval="2000">
+                        <img width="550px" height="350px"
+                             src="https://res.cloudinary.com/jerrick/image/upload/d_642250b563292b35f27461a7.png,f_jpg,fl_progressive,q_auto,w_1024/bauzaozjnog7sj03lj3a.jpg"
+                             class="d-block w-100" alt="...">
+                    </div>
+
+                    <div class="carousel-item active" data-bs-interval="2000">
+                        <img width="550px" height="350px"
+                             src="https://etimg.etb2bimg.com/photo/108152887.cms"
+                             class="d-block w-100" alt="...">
+                    </div>
+
+                    <div class="carousel-item" data-bs-interval="2000">
+                        <img width="550px" height="350px"
+                             src="https://watermark.lovepik.com/photo/40008/0007.jpg_wh1200.jpg"
+                             class="d-block w-100" alt="...">
+                        <!--                            <div class="carousel-caption d-none d-md-block">-->
+                        <!--                                <h5>Second slide label</h5>-->
+                        <!--                                <p>Some representative placeholder content for the second slide.</p>-->
+                        <!--                            </div>-->
+                    </div>
+
+
+                </div>
+
+                <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleAutoplaying"
+                        data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Previous</span>
+                </button>
+                <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleAutoplaying"
+                        data-bs-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Next</span>
+                </button>
+
+            </div>
         </div>
 
-        <div class="display-section">
+        <div class="animation-section"></div>
+    </div>
+
+    <div class="product-display-section">
+
+        <div class="product-group-display">
+            <h3>Our sections</h3>
+
+            <div class="product-groups-container row justify-content-center align-items-center">
+                {% for group in product_groups %}
+                    <div class="product-group card col-lg-2 col-md-3 col-sm-3 col-xs-4">
+                        <img src="{{group.image_url}}" width="100%" class="card-img-top" alt="">
+                        <div class="card-body">
+                            <p class="card-text">{{group.name}}</p>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
         </div>
+
+
+        <div class="product-deals-display">
+            <h3>Today's deals</h3>
+
+            <div class="products-container row justify-content-center align-items-center">
+                {% for product in products %}
+                    <div class="product card col-lg-2 col-md-4 col-sm-6 col-xs-6">
+                        <img src="{{product.image_url}}" width="100%" alt="" class="card-img-top">
+                        <div class="card-body">
+                            <p class="card-text" style="margin-bottom: 7px;">{{product.name}}</p>
+                            <p class="card-text fw-bold">₦{{product.price}}</p>
+                        </div>
+                    </div>
+                {% endfor %}
+
+            </div>
+        </div>
+
 
     </div>
+
+</div>
 {% endblock %}

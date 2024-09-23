@@ -1,10 +1,14 @@
 from django.db import models
 
-class Products(models.Model):
-    name = models.CharField(max_length=100)
-    description = models.TextField()
-    price = models.DecimalField(max_digits=10, decimal_places=2)
-    stock = models.IntegerField()
-    created_at = models.DateTimeField(auto_now_add=True)
 
+class ProductGroup(models.Model):
+    name = models.CharField(max_length=100)
+    image_url = models.CharField(max_length=255, null=True, blank=True)
+
+
+class Product(models.Model):
+    name = models.CharField(max_length=100)
+    price = models.FloatField(max_length=255)
+    stock = models.IntegerField()
+    image_url = models.CharField(max_length=255, null=True, blank=True)
 

@@ -2,6 +2,8 @@
 :root{
     --theme-color: rgb(240, 180, 49);
     --theme-color-dim: rgb(227, 158, 9);
+    --theme-background: rgba(238, 168, 16, 0.106);
+    --white: white;
 }
 
 .nav-section{
@@ -34,3 +36,61 @@
 .theme-color-button:hover{
     background: var(--theme-color-dim);
 }
+
+.product-display-section{
+    background-color: var(--theme-background);
+    padding: 50px;
+}
+
+.product-group-display, .product-deals-display{
+    background-color: var(--white);
+    border-radius: 10px;
+    padding: 20px 20px;
+    margin-bottom: 50px;
+}
+
+.row>*{
+    padding: 0px;
+}
+
+.product-groups-container, .products-container{
+    padding: 20px;
+    row-gap: 20px;
+    column-gap: 20px;
+}
+
+.product-group, .product{
+    border: solid .5px var(--theme-color);
+    cursor: pointer;
+    transition: .2s;
+}
+
+.product-group:hover, .product:hover{
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    padding: 3px;
+}
+
+.product-group{
+    height: 200px;
+}
+
+.product{
+    height: 280px;
+}
+
+.product-group img{
+    object-fit: cover;
+    height: 145px;
+}
+
+.product img{
+    object-fit: cover;
+    height: 150px;
+}
+
+
+
+
+
+
+
