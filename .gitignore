@@ -9,7 +9,6 @@ env/
 *.env
 
 # Django specific
-db.sqlite3
 media/
 
 # Ignore IDE or editor-specific files
@@ -17,7 +16,7 @@ media/
 .idea/
 
 # Ignore migrations if desired
-*/migrations/*
+
 
 # Others
 staticfiles/

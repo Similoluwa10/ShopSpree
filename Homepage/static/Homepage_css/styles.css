@@ -10,9 +10,13 @@
     margin-bottom: 50px;
 }
 
+.navbar-brand-container{
+     background-color: var(--theme-background);
+}
 .navbar-brand{
     font-size: 29px;
     font-weight: bold;
+    color: var(--theme-color);
 }
 
 
@@ -71,11 +75,11 @@
 }
 
 .product-group{
-    height: 200px;
+    height: 210px;
 }
 
 .product{
-    height: 280px;
+    max-height: 300px;
 }
 
 .product-group img{
