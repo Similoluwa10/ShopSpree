@@ -1,0 +1,79 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block links %} {% static 'Homepage_css/login.css' %} {% endblock %}
+
+{% block content %}
+
+    {% include "includes/nav.html"%}
+
+    <form id="login_form" class="login-form mb-5" method="POST">
+        {% csrf_token %}
+        <h2>Login to <span class="shopspree">Shopspree</span></h2> 
+
+        <div class="form-div">
+            {% for field in login_form %}
+                {{field.label_tag}}
+                <br>
+                {{field}}
+                <br>
+            {% endfor %}
+
+            <button class="submit-button btn mt-3" type="submit">Submit</button>
+            <p>Don't have an account? <button onclick="changeForm()" class="sign-up-link">Sign up</button> </p>
+        </div>
+
+    </form>
+
+
+    <form id="signup_form" class="signup-form mb-5" action="" method="POST">
+        {% csrf_token %}
+        <h2>Signup to <span class="shopspree">Shopspree</span></h2>
+
+        <div class="form-div">
+
+            {% comment %} 
+            {% if messages %}
+                {% for message in messages %}
+                    <p style="color: green; font-weight: bold;"> {{ message }} </p>
+            {% endfor %}
+            {% endcomment %}
+            
+            {% for field in signup_form %}
+                {{field.label_tag}}
+                <br>
+                {{field}}
+                <br>
+            {% endfor %}
+
+
+            <button class="submit-button btn mt-3" id="signup-submit-button" type="submit">Submit</button>
+            <p> Already have an account? <button onclick="reverseFormChange()" class="login-link">Login</button> </p>
+        </div>
+
+    </form>
+
+    <script>
+        
+        login_form = document.getElementById("login_form")
+        signup_form = document.getElementById("signup_form")
+        signupSubmitButton = document.getElementById("signup-submit-button")
+
+        function changeForm(){
+           login_form.style.display = 'none'
+           signup_form.style.display = 'flex'
+        }
+
+        function reverseFormChange(){
+            login_form.style.display = 'flex'
+            signup_form.style.display = 'none'
+        }
+
+        function alertSignup(){
+            window.alert("Account successfully created!! ")
+        }
+
+
+    </script>
+  
+{% endblock %}

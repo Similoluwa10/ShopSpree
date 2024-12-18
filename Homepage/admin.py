@@ -1,12 +1,16 @@
 from django.contrib import admin
-from .models import Product, ProductGroup
+from .models import Product, ProductGroup, Cart, User
+
 
 class ProductAdmin(admin.ModelAdmin):
     list_display = ('name', 'price', 'stock')
 
-admin.site.register(Product, ProductAdmin)
 
 class ProductGroupAdmin(admin.ModelAdmin):
-    list_display = ('name', 'image_url')
+    list_display = ('name',)
 
+
+admin.site.register(Product, ProductAdmin)
 admin.site.register(ProductGroup, ProductGroupAdmin)
+admin.site.register(Cart)
+admin.site.register(User)

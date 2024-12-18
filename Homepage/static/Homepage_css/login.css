@@ -1,0 +1,47 @@
+:root{
+    --theme-color: rgb(240, 180, 49);
+    --theme-color-dim: rgb(227, 158, 9);
+    --theme-background: rgba(238, 168, 16, 0.106);
+    --theme-link: rgb(112, 79, 7);
+    --white: white;
+}
+
+.login-form, .signup-form{
+    margin: auto;
+    margin-top: 150px;
+    padding: 40px 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-width: 350px;
+    max-width: 50%;
+    /* border: solid .5px black; */
+    border-radius: 10px;
+    height: auto;
+    box-shadow: rgba(0, 0, 0, 0.25) 0px 14px 28px, rgba(0, 0, 0, 0.22) 0px 10px 10px;
+}
+
+.login-form h2, .signup-form h2{
+    color: var(--theme-color);
+}
+
+.signup-form{
+    display: none;
+}
+
+.submit-button{
+    border: none;
+    border-radius: 5px;
+    background-color: var(--theme-color) !important ;
+    margin: auto;
+    margin-bottom: 10px;
+}
+
+.sign-up-link, .login-link{
+    border: none;
+    background-color: transparent;
+    text-decoration: underline;
+    color: var(--theme-link);
+}
+
