@@ -26,8 +26,8 @@ SECRET_KEY = 'django-insecure-v429w3ld0u1qy7az11+h^t4a0+4ufme^t*1#-2&$_hu*#h@!eg
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-# ALLOWED_HOSTS = ['.vercel.app']
-ALLOWED_HOSTS = ['*']
+
+ALLOWED_HOSTS = ['shopspree-two.vercel.app', 'localhost', '127.0.0.1']
 
 # Application definition
 
@@ -118,10 +118,9 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/5.1/howto/static-files/
 
 STATIC_URL = 'static/'
-
 # Optionally, specify where to collect all static files during deployment
-# STATIC_ROOT = BASE_DIR / "staticfiles"
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+STATIC_ROOT = BASE_DIR / "staticfiles"
+# STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 # Define additional directories where Django will search for static files
 # STATICFILES_DIRS = [BASE_DIR / "static"]
