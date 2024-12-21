@@ -2,7 +2,7 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
-from .models import Product, ProductGroup, User
+from .models import Product, Category, User
 from django.contrib import messages
 from .forms import LoginForm, SignupForm
 
@@ -12,9 +12,9 @@ from .forms import LoginForm, SignupForm
 def index(request):
     # define the variables needed
     products = Product.objects.all()
-    product_groups = ProductGroup.objects.all()
+    categories = Category.objects.all()
     username = ''               
-    return render(request, 'index.html', {'products': products, 'product_groups': product_groups, "username": username,})
+    return render(request, 'index.html', {'products': products, 'categories': categories, "username": username,})
 
 
 

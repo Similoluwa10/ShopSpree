@@ -70,11 +70,11 @@
             <h3>Our sections</h3>
 
             <div class="product-groups-container row justify-content-center align-items-center">
-                {% for group in product_groups %}
+                {% for category in categories %}
                     <div class="product-group card col-lg-2 col-md-3 col-sm-3 col-xs-4">
-                        <img src="{{group.image_url}}" width="100%" class="card-img-top" alt="">
+                        <img src="{{category.image_url}}" width="100%" class="card-img-top" alt="">
                         <div class="card-body">
-                            <p class="card-text">{{group.name}}</p>
+                            <p class="card-text">{{category.name}}</p>
                         </div>
                     </div>
                 {% endfor %}
