@@ -1,8 +1,11 @@
 {% extends 'base.html' %}
+{% load static %}
+{% block styles %} {% static 'Homepage_css/login.css'%} {% endblock %}
 
 {% block content %}
 
-    {% include "includes/nav.html"%}
+    <!-- Included the navigation -->
+    {% include "includes/nav.html" %}
 
     <form id="login_form" class="login-form mb-5" method="POST">
         {% csrf_token %}

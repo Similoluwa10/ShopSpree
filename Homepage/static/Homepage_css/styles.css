@@ -24,6 +24,11 @@
     margin-right: 30px;
 }
 
+.navbar-nav li{
+    display: flex !important;
+    align-items: center !important;
+}
+
 .account-section, .cart-section{
     display: flex;
     align-items: center;

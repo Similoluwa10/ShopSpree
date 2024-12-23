@@ -1,10 +1,13 @@
 {% extends 'base.html' %}
+{% load static %}
+
+{% block styles %} {% static 'Homepage_css/styles.css'%} {% endblock %}
 
 {% block content %}
 <div class="main-section" height="800px">
 
-    <!-- Included the navigation -->
-    {% include "includes/nav.html" %}
+     <!-- Included the navigation -->
+     {% include "includes/nav.html" %}
 
     <!-- The intro section not completed, only carousel available!-->
     <div class="intro-section pt-5">

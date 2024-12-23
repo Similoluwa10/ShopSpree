@@ -1,10 +1,10 @@
 {% extends 'base.html' %}
 {% load static %}
 
-{% block links %} {% static 'Homepage_css/styles.css' %} {% endblock %}
+{% block styles %} {% static 'Homepage_css/styles.css' %} {% endblock %}
 
 {% block content %}
-<nav class="navbar navbar-expand-md fixed-top bg-body-tertiary px-sm-3 mb-5">
+<nav class="navbar navbar-expand-md fixed-top bg-body-tertiary px-sm-3 mb-3">
     <div class="container-fluid d-flex justify-content-around">
         <div class="navbar-brand-container mb-lg-0">
             <a class="navbar-brand" href="{% url "homepage" %}">Shopspree</a>
@@ -62,17 +62,17 @@
                     <span>Cart</span>
                 </li>
 
-                <li class="nav-item nav-link account-section mx-2">
+                <li class="nav-item nav-link account-section mx-2 ">
                     <i class="bi bi-person-circle" style="font-size: 1.2em;"></i>
 
                     {% if user %} 
                         <span> {{ username }}</span>
                         <li class="nav-item mx-2">
-                            <a href="{% url "login_page" %}" class="btn theme-color-button">Login</a>
+                            <a href="{% url "login_page" %}" class="btn theme-color-button mt-1">Login</a>
                         </li>
                     {% else %}
                         <li class="nav-item mx-2">
-                            <a href="{% url "login_page" %}" class="btn theme-color-button">Login</a>
+                            <a href="{% url "login_page" %}" class="btn theme-color-button mt-1">Login</a>
                         </li>
                     {% endif %}
 
