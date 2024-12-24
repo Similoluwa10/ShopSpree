@@ -71,17 +71,20 @@
     transition: .2s;
 }
 
+
 .product-group:hover, .product:hover{
     box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
     padding: 3px;
 }
 
-.product-group{
-    height: 210px;
+.product-groups-container a, .products-container a{
+    text-decoration: none;
+    color: black;
 }
 
 .product{
     max-height: 300px;
+    text-decoration: none;
 }
 
 .product-group img{

@@ -6,7 +6,8 @@ from . import views
 urlpatterns = [
     path('', views.index, name="homepage"),
     path('login_page', views.login_page, name="login_page"),
-    # path('login_page', LoginView.as_view(template_name='login.html'), name='login_page'),
+    path('products/<product_name>/<product_slug>', views.product_page, name="product_page"),
+    path('categories/<category_name>/<category_slug>', views.category_page, name="category_page")
 ]
 
 

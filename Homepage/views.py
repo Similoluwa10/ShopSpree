@@ -66,4 +66,13 @@ def login_page(request):
     return render(request, 'login.html', {'login_form': login_form, 'signup_form': signup_form, 'username': username, }) 
 
 
+#View for product pages
+def product_page(request, product_name, product_slug):
+    product = Product.objects.get(slug = product_slug)
+    return render(request, 'productpage.html', {'product': product,})
 
+
+#View for category pages
+def category_page(request, category_name, category_slug):
+    category = Category.objects.get(slug = category_slug)
+    return render(request, 'categorypage.html', {'category': category,})

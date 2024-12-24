@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block styles %} {% static 'Homepage_css/productpage.css'%} {% endblock %}
+
+{% block content %}
+    <!-- Included the navigation -->
+    {% include "includes/nav.html" %}
+
+    <div class="main-section p-5 mt-5">
+
+        <div class="product-card card" style="" bis_skin_checked="1">
+            <img src="{{ product.image.url }}" class="card-img-top" alt="...">
+    
+            <div class="product-card-body card-body d-flex align-items-center" width="80%" height="400px" bis_skin_checked="1" >
+                <div class="mx-3">
+                    <h5 class="card-title">{{ product.name }}</h5>
+                    <p class="card-text">
+                    {% comment %} Some quick example text to build on the card title and make up the
+                    bulk of the card's content. {% endcomment %}
+                    ${{ product.price }}
+                    </p>
+                </div>
+                <a href="#" class="add-to-cart-btn btn ">Add to cart</a>
+            </div>
+        </div>
+
+    </div>
+
+{% endblock %}

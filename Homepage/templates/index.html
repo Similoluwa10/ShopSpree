@@ -30,21 +30,20 @@
 
                     <div class="carousel-item" data-bs-interval="2000">
                         <img width="550px" height="350px"
-                            src="https://res.cloudinary.com/jerrick/image/upload/d_642250b563292b35f27461a7.png,f_jpg,fl_progressive,q_auto,w_1024/bauzaozjnog7sj03lj3a.jpg"
+                            src="/media/carousel_imgs/carousel-img-1.jpg"
                             class="d-block w-100" alt="...">
                     </div>
 
                     <div class="carousel-item" data-bs-interval="2000">
                         <img width="550px" height="350px"
-                            src="https://watermark.lovepik.com/photo/40008/0007.jpg_wh1200.jpg" class="d-block w-100"
+                            src="/media/carousel_imgs/carousel-img-2.jpg" class="d-block w-100"
                             alt="...">
                     </div>
 
                     <div class="carousel-item active" data-bs-interval="2000">
-                        <img width="550px" height="350px" src="https://etimg.etb2bimg.com/photo/108152887.cms"
+                        <img width="550px" height="350px" src="/media/carousel_imgs/carousel-img-3.cms"
                             class="d-block w-100" alt="...">
                     </div>
-
 
                 </div>
 
@@ -72,31 +71,35 @@
 
             <div class="product-groups-container row justify-content-center align-items-center">
                 {% for category in categories %}
-                    <div class="product-group card col-lg-2 col-md-3 col-sm-3 col-xs-4">
-                        <img src="{{category.image_url}}" width="100%" class="card-img-top" alt="">
-                        <div class="card-body">
-                            <p class="card-text">{{category.name}}</p>
+                    <a class="product-group card col-lg-2 col-md-3 col-sm-3 col-xs-4" href="{% url "category_page" category.name category.slug %}">
+                        <div>
+                            <img src="{{category.image.url}}" width="100%" class="card-img-top" alt="">
+                            <div class="card-body">
+                                <p class="card-text">{{category.name}}</p>
+                            </div>
                         </div>
-                    </div>
+                    </a>
+
                 {% endfor %}
             </div>
         </div>
 
         <div class="product-deals-display">
-            <h3>Today's deals</h3>
+            <h3>Today's deals</h3>       
 
-            <div class="products-container row justify-content-center align-items-center">
-                {% for product in products %}
-                    <div class="product card col-lg-2 col-md-4 col-sm-6 col-xs-6">
-                        <img src="{{product.image_url}}" width="100%" alt="" class="card-img-top">
-                        <div class="card-body">
-                            <p class="card-text" style="margin-bottom: 7px;">{{product.name}}</p>
-                            <p class="card-text fw-bold">₦{{product.price}}</p>
-                        </div>
-                    </div>
-                {% endfor %}
-
-            </div>
+                <div class="products-container row justify-content-center align-items-center">
+                    {% for product in products %}
+                        <a class="product card col-xl-2 col-lg-3 col-md-4 col-sm-6 col-xs-6" href="{% url "product_page" product.name product.slug  %}">
+                            <div> 
+                                <img src="{{product.image.url}}" width="100%" alt="" class="card-img-top">
+                                <div class="card-body">
+                                    <p class="card-text" style="margin-bottom: 7px;">{{product.name}}</p>
+                                    <p class="card-text fw-bold">₦{{product.price}}</p>
+                                </div>
+                            </div>
+                        </a>
+                    {% endfor %}
+                </div>
         </div>
 
     </div>
