@@ -26,16 +26,19 @@
 
 .add-to-cart-btn {
     padding: 10px 15px !important;
-    /* height: 50% !important; */
+    width: 220px !important;
+    background-color: var(--theme-color) !important;
+    border: none;
+}
+
+.see-products-btn, .see-products-btn-top {
+    padding: 10px 15px !important;
     width: 220px !important;
     background-color: var(--theme-color) !important;
     border: none;
 }
 
 .see-products-btn {
-    padding: 10px 15px !important;
-    width: 220px !important;
-    background-color: var(--theme-color) !important;
-    border: none;
     margin: auto;
 }
+

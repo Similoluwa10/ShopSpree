@@ -29,10 +29,6 @@
     color: var(--theme-color);
 }
 
-.signup-form{
-    display: none;
-}
-
 .submit-button{
     border: none;
     border-radius: 5px;

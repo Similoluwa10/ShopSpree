@@ -8,7 +8,10 @@
     {% include "includes/nav.html" %}
 
     <div class="main-section p-5 mt-5">
-        <h2 class="card-title mb-3">{{ category.name }}</h2>
+        <div class="container d-flex justify-content-between mb-3">
+            <h2 class="card-title">{{ category.name }}</h2>
+            <a href="#" class="see-products-btn-top btn ">See our products</a>
+        </div>
 
         <div class="category-card card" style="" bis_skin_checked="1">
             <img src="{{ category.image.url }}" class="card-img-top" alt="...">

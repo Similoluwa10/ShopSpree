@@ -69,6 +69,8 @@
     border: solid .5px var(--theme-color);
     cursor: pointer;
     transition: .2s;
+    text-decoration: none !important;
+    color: black;
 }
 
 

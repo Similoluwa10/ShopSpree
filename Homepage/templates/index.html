@@ -79,27 +79,25 @@
                             </div>
                         </div>
                     </a>
-
                 {% endfor %}
             </div>
         </div>
 
         <div class="product-deals-display">
             <h3>Today's deals</h3>       
-
-                <div class="products-container row justify-content-center align-items-center">
-                    {% for product in products %}
-                        <a class="product card col-xl-2 col-lg-3 col-md-4 col-sm-6 col-xs-6" href="{% url "product_page" product.name product.slug  %}">
-                            <div> 
-                                <img src="{{product.image.url}}" width="100%" alt="" class="card-img-top">
-                                <div class="card-body">
-                                    <p class="card-text" style="margin-bottom: 7px;">{{product.name}}</p>
-                                    <p class="card-text fw-bold">₦{{product.price}}</p>
-                                </div>
+            <div class="products-container row justify-content-center align-items-center">
+                {% for product in products %}
+                    <a class="product card col-xl-2 col-lg-3 col-md-4 col-sm-6 col-xs-6" href="{% url "product_page" product.name product.slug  %}">
+                        <div> 
+                            <img src="{{product.image.url}}" width="100%" alt="" class="card-img-top">
+                            <div class="card-body">
+                                <p class="card-text" style="margin-bottom: 7px;">{{product.name}}</p>
+                                <p class="card-text fw-bold">₦{{product.price}}</p>
                             </div>
-                        </a>
-                    {% endfor %}
-                </div>
+                        </div>
+                    </a>
+                {% endfor %}
+            </div>
         </div>
 
     </div>

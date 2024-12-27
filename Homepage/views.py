@@ -10,43 +10,13 @@ from .forms import LoginForm, SignupForm
 
 # View for homepage
 def index(request):
-    # define the variables needed
     products = Product.objects.all()
     categories = Category.objects.all()
-    username = ''               
-    return render(request, 'index.html', {'products': products, 'categories': categories, "username": username,})
+    return render(request, 'index.html', {'products': products, 'categories': categories,})
 
 
-
-#View for signup and login page
 def login_page(request):
-    username = ''
-       
-    if request.method == 'POST':
-        #handle sign up
-        signup_form = SignupForm(request.POST)
-        if signup_form.is_valid():
-            signup_account = User(
-                username = signup_form.cleaned_data['username'],
-                email = signup_form.cleaned_data['email'],
-                password = signup_form.cleaned_data['password']
-            ) 
-            signup_account.save()           
-            signup_form = SignupForm() 
-        
-        #handle login
-        # login_form = LoginForm(request.POST)
-        # if login_form.is_valid():            
-        #     email = request.POST['email']
-        #     password = request.POST['password']
-        #     user = authenticate(request, email=email, password=password)
-        #     if user is not None:
-        #         login(request, user)
-        #         username = user.username
-        #         return redirect('index')  
-        #     else:
-        #         messages.error(request, "Invalid username or password.")
-            
+    if request.method == 'POST':     
         login_form = LoginForm(request.POST)  
         is_loggedin = False
         if login_form.is_valid():
@@ -60,10 +30,25 @@ def login_page(request):
                 else:
                     username = 'account does not exist'
                        
-                                  
-    signup_form = SignupForm()
     login_form = LoginForm()                               
-    return render(request, 'login.html', {'login_form': login_form, 'signup_form': signup_form, 'username': username, }) 
+    return render(request, 'login.html', {'login_form': login_form,}) 
+
+
+def signup_page(request):
+    if request.method == 'POST':
+        signup_form = SignupForm(request.POST)
+        if signup_form.is_valid():
+            signup_account = User(
+                username = signup_form.cleaned_data['username'],
+                email = signup_form.cleaned_data['email'],
+                password = signup_form.cleaned_data['password']
+            ) 
+            signup_account.save()           
+            signup_form = SignupForm() 
+    
+    signup_form = SignupForm()                             
+    return render(request, 'signup.html', {'signup_form': signup_form,}) 
+
 
 
 #View for product pages
