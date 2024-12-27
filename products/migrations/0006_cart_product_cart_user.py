@@ -7,18 +7,18 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('Homepage', '0005_cart'),
+        ('products', '0005_cart'),
     ]
 
     operations = [
         migrations.AddField(
             model_name='cart',
             name='product',
-            field=models.ManyToManyField(to='Homepage.product'),
+            field=models.ManyToManyField(to='products.product'),
         ),
         migrations.AddField(
             model_name='cart',
             name='user',
-            field=models.OneToOneField(null=True, on_delete=django.db.models.deletion.CASCADE, to='Homepage.user'),
+            field=models.OneToOneField(null=True, on_delete=django.db.models.deletion.CASCADE, to='products.user'),
         ),
     ]

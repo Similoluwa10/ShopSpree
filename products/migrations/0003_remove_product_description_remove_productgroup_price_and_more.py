@@ -6,7 +6,7 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('Homepage', '0002_product_productgroup_delete_products'),
+        ('products', '0002_product_productgroup_delete_products'),
     ]
 
     operations = [

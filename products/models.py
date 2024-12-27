@@ -5,6 +5,9 @@ class Category(models.Model):
     image_url = models.CharField(max_length=255, null=True, blank=True)
     image = models.ImageField(blank=True, upload_to='category_imgs')
     slug = models.SlugField(blank=True)
+    
+    class Meta:
+        db_table = 'homepage_category'  
 
 
 class Product(models.Model):
@@ -17,6 +20,9 @@ class Product(models.Model):
     
     def __str__(self):
         return self.name
+    
+    class Meta:
+        db_table = 'homepage_product'
 
 
 class User(models.Model):

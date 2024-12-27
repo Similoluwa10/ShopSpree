@@ -6,7 +6,7 @@ from django.db import migrations
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('Homepage', '0008_alter_cart_user'),
+        ('products', '0008_alter_cart_user'),
     ]
 
     operations = [

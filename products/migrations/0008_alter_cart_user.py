@@ -3,17 +3,16 @@
 import django.db.models.deletion
 from django.db import migrations, models
 
-
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('Homepage', '0007_alter_cart_user'),
+        ('products', '0007_alter_cart_user'),
     ]
 
     operations = [
         migrations.AlterField(
             model_name='cart',
             name='user',
-            field=models.OneToOneField(null=True, on_delete=django.db.models.deletion.CASCADE, to='Homepage.user'),
+            field=models.OneToOneField(null=True, on_delete=django.db.models.deletion.CASCADE, to='products.user'),
         ),
     ]
