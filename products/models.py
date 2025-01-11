@@ -1,5 +1,7 @@
 from django.db import models
 
+from user.models import User
+
 class Category(models.Model):
     name = models.CharField(max_length=100)
     image_url = models.CharField(max_length=255, null=True, blank=True)
@@ -24,16 +26,10 @@ class Product(models.Model):
     class Meta:
         db_table = 'homepage_product'
 
-
-class User(models.Model):
-    username = models.CharField(max_length=30, null=True)
-    email = models.EmailField()
-    password = models.CharField(max_length=30)
-    
-    def __str__(self):
-        return self.username
-
     
 class Cart(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, null=True)
     product = models.ManyToManyField(Product)
+    
+    class Meta:
+        db_table = 'homepage_cart'

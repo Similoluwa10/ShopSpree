@@ -15,42 +15,6 @@ def index(request):
     return render(request, 'index.html', {'products': products, 'categories': categories,})
 
 
-def login_page(request):
-    if request.method == 'POST':     
-        login_form = LoginForm(request.POST)  
-        is_loggedin = False
-        if login_form.is_valid():
-            users = User.objects.all()   
-                  
-            for user in users:                
-                if user.email == login_form.cleaned_data['email'] and user.password == login_form.cleaned_data['password']:
-                    user.is_authenticated = True
-                    is_loggedin = True
-                    username = user.username
-                else:
-                    username = 'account does not exist'
-                       
-    login_form = LoginForm()                               
-    return render(request, 'login.html', {'login_form': login_form,}) 
-
-
-def signup_page(request):
-    if request.method == 'POST':
-        signup_form = SignupForm(request.POST)
-        if signup_form.is_valid():
-            signup_account = User(
-                username = signup_form.cleaned_data['username'],
-                email = signup_form.cleaned_data['email'],
-                password = signup_form.cleaned_data['password']
-            ) 
-            signup_account.save()           
-            signup_form = SignupForm() 
-    
-    signup_form = SignupForm()                             
-    return render(request, 'signup.html', {'signup_form': signup_form,}) 
-
-
-
 #View for product pages
 def product_page(request, product_name, product_slug):
     product = Product.objects.get(slug = product_slug)
