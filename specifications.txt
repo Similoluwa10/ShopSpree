@@ -1,0 +1,34 @@
+Specifications for Shopspree (My first Django project)
+
+Functional requirements:
+
+Completed:
+
+1. Homepage with a navigation(consisting of dropdowns, a search bar and button, a login/logout button, and so on), a carousel, a category and product listing section, and a footer. 
+
+2. The homepage displays of the products and category which are gotten from a database. 
+
+3. A login page and sign up page
+
+4. Signup functionality which enables the data entered into the form to be registered into the User database.
+
+
+
+Incomplete:
+
+1. Point 1(bootstrap interactivity and design) and 4 listed above is not fully completed
+
+2. Login functionality, which allows a user to add items to cart and displays the username of the user.
+
+3. Logout functionality to sign user out and remove access to all user specific data, and remove the username display.
+
+4. Cart functionality to add products to be purchased
+
+5. Each cart data should be specific to a user (Create a relationship between the user model and the cart model)
+
+
+Non-functional requirements:
+
+1. Response and load time (speed)
+2. Compatibility, with different types of browsers
+3. 
