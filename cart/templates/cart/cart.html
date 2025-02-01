@@ -1,0 +1,42 @@
+{% comment %} {% extends 'base.html' %}
+{% load static %}
+
+{% comment %} {% block styles %} {% static ''%} {% endblock %} {% endcomment %}
+
+{% block content %}
+    
+    <h2>Your Shopping Cart</h2>
+
+    {% if cart and cart.items.all %}
+        <table>
+            <thead>
+                <tr>
+                    <th>Product</th>
+                    <th>Quantity</th>
+                    <th>Price</th>
+                    <th>Total</th>
+                    <th>Remove</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for item in cart.items.all %}
+                <tr>
+                    <td>{{ item.product.name }}</td>
+                    <td>{{ item.quantity }}</td>
+                    <td>${{ item.product.price }}</td>
+                    <td>${{ item.get_total_price }}</td>
+                    <td>
+                        <a href="{% url 'cart_remove' item.product.id %}">Remove</a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+        <p><strong>Total Price:</strong> ${{ cart.get_total_price }}</p>
+    {% else %}
+        <p>Your cart is empty.</p>
+    {% endif %}
+
+
+{% endblock %} {% endcomment %}

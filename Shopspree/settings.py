@@ -48,8 +48,9 @@ MIDDLEWARE = [
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
-    'django.contrib.messages.middleware.MessageMiddleware',
+    'django.contrib.messages.middleware.MessageMiddleware',     
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'user.middleware.LoginRequiredMiddleware',
 ]
 
 ROOT_URLCONF = 'Shopspree.urls'
@@ -134,6 +135,7 @@ MEDIA_URL = "/media/"
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
+LOGIN_URL = '/user/login_page/'
 
 # SESSION_ENGINE = 'django.contrib.sessions.backends.db'  # Default: Use database-backed sessions
 # SESSION_COOKIE_AGE = 1209600  # 2 weeks

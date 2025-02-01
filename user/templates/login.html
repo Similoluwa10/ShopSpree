@@ -7,9 +7,19 @@
     <!-- Included the navigation -->
     {% include "includes/nav.html" %}
 
+
     <form id="login_form" class="login-form mb-5" method="POST">
         {% csrf_token %}
         <h2>Login to <span class="shopspree">Shopspree</span></h2> 
+
+         {% if messages %}
+            {% for message in messages %}
+                <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+                {{ message }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            {% endfor %}
+        {% endif %} 
 
         <div class="form-div">
             {% for field in login_form %}

@@ -17,7 +17,7 @@ def login_user(request):
         if user is not None:
             login(request, user)
             # messages.success(request, f' welcome {username} !!')
-            return redirect('login_user')
+            return redirect('/')
         else:
             # messages.info(request, f'account done not exit plz sign in')
             pass

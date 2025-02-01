@@ -1,5 +1,4 @@
 from django.db import models
-
 from user.models import User
 
 class Category(models.Model):
@@ -27,9 +26,9 @@ class Product(models.Model):
         db_table = 'homepage_product'
 
     
-class Cart(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE, null=True)
-    product = models.ManyToManyField(Product)
+# class Cart(models.Model):
+#     user = models.OneToOneField(User, on_delete=models.CASCADE, null=True)
+#     product = models.ManyToManyField(Product)
     
-    class Meta:
-        db_table = 'homepage_cart'
+#     class Meta:
+#         db_table = 'homepage_cart'
