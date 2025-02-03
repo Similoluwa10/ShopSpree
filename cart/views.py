@@ -5,7 +5,6 @@ from products.models import Product
 from .models import Cart, CartItem
 
 
-
 @login_required
 def add_to_cart(request, product_slug):
     product = get_object_or_404(Product, slug=product_slug)
@@ -23,16 +22,16 @@ def add_to_cart(request, product_slug):
         cart_item.quantity += 1
         cart_item.save()
     
-    return redirect('cart_page')
+    return redirect('cart:cart_page')
 
 
 @login_required
 def remove_from_cart(request, product_slug):
     cart = get_object_or_404(Cart, user=request.user)
-    cart_item = get_object_or_404(CartItem, cart=cart, product_slug=product_slug)
+    cart_item = get_object_or_404(CartItem, cart=cart, product=product_slug)
     cart_item.delete()
     
-    return redirect('cart_page')
+    return redirect('cart:cart_page')
 
 # displays the cart page
 @login_required
