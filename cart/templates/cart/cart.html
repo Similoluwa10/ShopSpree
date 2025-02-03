@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 {% load static %}
 
-{% block styles %} {% static 'Homepage_css/productpage.css'%} {% endblock %}
+{% block styles %} {% static 'cart_css/cart.css'%} {% endblock %}
 
 
 {% block content %}
@@ -9,11 +9,11 @@
     <!-- Included the navigation -->
     {% include "includes/nav.html" %}
     
-    <div class="main-section pt-5">
-        <h2>Your Shopping Cart</h2>
+    <div class="main-section mt-5 p-5">
+        <h2 class="cart-heading text-center mb-3 fw-bold">Your Shopping Cart</h2>
 
         {% if cart and cart.items.all %}
-            <table>
+            <table class="table mb-3">
                 <thead>
                     <tr>
                         <th>Product</th>
@@ -25,22 +25,31 @@
                 </thead>
                 <tbody>
                     {% for item in cart.items.all %}
-                    <tr>
-                        <td>{{ item.product.name }}</td>
-                        <td>{{ item.quantity }}</td>
-                        <td>₦{{ item.product.price }}</td>
-                        <td>₦{{ item.get_total_price }}</td>
-                        <td>
-                            <a href="{% url 'cart:cart_remove' item.product.slug %}">Remove</a>
-                        </td>
-                    </tr>
+                        <tr>
+                            <td>{{ item.product.name }}</td>
+                            <td>{{ item.quantity }}</td>
+                            <td>₦{{ item.product.price }}</td>
+                            <td>₦{{ item.get_total_price }}</td>
+                            <td>
+                                <a class="remove" href="{% url 'cart:cart_remove' item.product.slug %}">Remove</a>
+                            </td>
+                        </tr>
                     {% endfor %}
                 </tbody>
             </table>
 
-            <p><strong>Total Price:</strong> ₦{{ cart.get_total_price }}</p>
+            <div class="d-flex flex-column justify-content-center align-items-center">
+                <p class="text-center"><strong>Total Price:</strong> ₦{{ cart.get_total_price }}</p>
+                <div class="d-flex justify-content-center">
+                    <a href="{% url 'homepage' %}" class="btn shopspree-btn mx-3" type="submit">Add more products</a>
+                    <button class="btn shopspree-btn" type="submit">Checkout</button>
+                </div>
+            </div>
         {% else %}
-            <p>Your cart is empty.</p>
+            <div class="d-flex justify-content-center">
+                <span class="text-center fs-5 mx-3">Your cart is empty!!!</span>
+                <a href="{% url 'homepage' %}" class="btn shopspree-btn" type="submit">Check out our products</a>
+            </div>
         {% endif %}
     </div>
 

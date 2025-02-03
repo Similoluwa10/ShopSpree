@@ -4,7 +4,7 @@
 {% block styles %} {% static 'Homepage_css/styles.css' %} {% endblock %}
 
 {% block content %}
-<nav class="navbar navbar-expand-lg fixed-top bg-body-tertiary px-sm-3 mb-3">
+<nav class="navbar navbar-expand-lg fixed-top bg-body-tertiary px-sm-3 mb-5">
     <div class="container-fluid d-flex justify-content-around">
         <div class="navbar-brand-container mb-lg-0">
             <a class="navbar-brand" href="{% url "homepage" %}">Shopspree</a>
@@ -26,7 +26,7 @@
 
                 <!-- Account dropdown -->
                 <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                    <a class="nav-link dropdown-toggle" href="#" type="button" data-bs-toggle="dropdown"
                         aria-expanded="false">
                         Account
                     </a>
