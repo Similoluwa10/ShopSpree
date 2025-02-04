@@ -46,8 +46,9 @@ def signup_user(request):
             
             signup_account.set_password(password)
             print(username, email, password, signup_account)
-            signup_account.save()           
-            signup_form = SignupForm() 
+            signup_account.save() 
+            messages.success(request, "Your account has been created successfully!")
+            return redirect("login_page")          
     
     signup_form = SignupForm()                             
     return render(request, 'signup.html', {'signup_form': signup_form,}) 
