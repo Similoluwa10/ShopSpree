@@ -43,7 +43,9 @@ DATABASES = {
 DEBUG = True
 
 
-ALLOWED_HOSTS = ['shopspree-two.vercel.app', 'localhost', '127.0.0.1']
+# ALLOWED_HOSTS = ['shopspree-two.vercel.app', 'localhost', '127.0.0.1']
+
+ALLOWED_HOSTS = ["*"]
 
 
 INSTALLED_APPS = [
@@ -137,14 +139,19 @@ USE_TZ = True
 
 STATIC_URL = 'static/'
 # Optionally, specify where to collect all static files during deployment
-STATIC_ROOT = BASE_DIR / "staticfiles"
-# STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+# STATIC_ROOT = BASE_DIR / "staticfiles"
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 # Define additional directories where Django will search for static files
 # STATICFILES_DIRS = [BASE_DIR / "static"]
 
 MEDIA_ROOT = BASE_DIR / "uploads"
 MEDIA_URL = "/media/"
+
+# WhiteNoise for static file handling
+INSTALLED_APPS.append("whitenoise.runserver_nostatic")
+MIDDLEWARE.insert(1, "whitenoise.middleware.WhiteNoiseMiddleware")
+
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
