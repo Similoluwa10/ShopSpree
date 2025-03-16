@@ -48,6 +48,11 @@ DEBUG = True
 ALLOWED_HOSTS = ["*"]
 
 
+# Paystack keys
+PAYSTACK_SECRET_KEY = "sk_test_a72ac41325e7c40bc82ffca9aedd57d5514e3a35"
+PAYSTACK_PUBLIC_KEY = "pk_test_57f1b389ceb9cd03c55d2f8bbb98fe681ab6583d"
+PAYSTACK_BASE_URL = "https://api.paystack.co"
+
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
@@ -58,6 +63,7 @@ INSTALLED_APPS = [
     'products',
     'cart',
     'user',
+    'paystack',
 ]
 
 MIDDLEWARE = [

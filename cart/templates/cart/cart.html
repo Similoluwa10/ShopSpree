@@ -42,7 +42,7 @@
                 <p class="text-center"><strong>Total Price:</strong> ₦{{ cart.get_total_price }}</p>
                 <div class="d-flex justify-content-center">
                     <a href="{% url 'homepage' %}" class="btn shopspree-btn mx-3" type="submit">Add more products</a>
-                    <button class="btn shopspree-btn" type="submit">Checkout</button>
+                    <a href="{% url 'pay:initiate_payment'%}" class="btn shopspree-btn" type="submit">Checkout</a>
                 </div>
             </div>
         {% else %}
@@ -52,6 +52,7 @@
             </div>
         {% endif %}
     </div>
+
 
 
 {% endblock %} 

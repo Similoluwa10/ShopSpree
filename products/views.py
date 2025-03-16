@@ -25,3 +25,5 @@ def product_page(request, product_name, product_slug):
 def category_page(request, category_name, category_slug):
     category = Category.objects.get(slug = category_slug)
     return render(request, 'categorypage.html', {'category': category,})
+
+

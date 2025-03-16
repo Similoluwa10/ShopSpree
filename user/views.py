@@ -8,10 +8,8 @@ from django.contrib.auth.models import User
 
 def login_user(request):
     if request.method == 'POST':
-  
         username = request.POST['username']
         password = request.POST['password']
-
         user = authenticate(request, username = username, password = password)
         
         if user is not None:
@@ -53,4 +51,14 @@ def signup_user(request):
     signup_form = SignupForm()                             
     return render(request, 'signup.html', {'signup_form': signup_form,}) 
 
+
+
+
+# signup_form = SignupForm(request.POST)
+
+# serializer = DrinkSerializer(data=request.data)
+
+# These are both ways of getting data from a form, 
+# but can you explain both of them and how they work differently, 
+# and also, can you explain how exactly data is gotten from a form or a post request
 
