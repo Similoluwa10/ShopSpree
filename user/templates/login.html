@@ -7,7 +7,6 @@
     <!-- Included the navigation -->
     {% include "includes/nav.html" %}
 
-
     <form id="login_form" class="login-form mb-5" method="POST">
         {% csrf_token %}
         <h2>Login to <span class="shopspree">Shopspree</span></h2> 
@@ -34,5 +33,7 @@
         </div>
 
     </form>
+
+    {% include "includes/footer.html" %}
   
 {% endblock %}

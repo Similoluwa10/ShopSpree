@@ -3,15 +3,11 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from products.models import Product
 from .models import Cart, CartItem
-from paystack.service import initiate_payment
-
 
 
 @login_required
 def add_to_cart(request, product_slug):
     product = get_object_or_404(Product, slug=product_slug)
-    # Print object for debugging
-    print(product)
     
     # Get or create cart for user
     cart, created = Cart.objects.get_or_create(user=request.user)
@@ -39,19 +35,6 @@ def remove_from_cart(request, product_slug):
 def cart_detail(request):
     cart = Cart.objects.filter(user=request.user).first()
     return render(request, 'cart/cart.html', {'cart': cart})
-
-
-# def checkout(request):
-#     user_email = request.user.email
-#     total_amount = add_to_cart(request)  
-#     payment_response = initiate_payment(user_email, total_amount)
-    
-#     if payment_response and payment_response.get("status"):
-#         return redirect(payment_response["data"]["url"])  # Redirect to Paystack payment page
-    
-#     # Handle payment initiation failure
-#     return redirect("cart:checkout_failed")
-
 
 
 
