@@ -66,6 +66,7 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    "whitenoise.middleware.WhiteNoiseMiddleware", 
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -141,21 +142,20 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.1/howto/static-files/
 
-STATIC_URL = 'static/'
-# Optionally, specify where to collect all static files during deployment
-# STATIC_ROOT = BASE_DIR / "staticfiles"
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+STATIC_URL = '/static/'
+STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
 
 # Define additional directories where Django will search for static files
-# STATICFILES_DIRS = [BASE_DIR / "static"]
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, "static")  # Ensure you have a "static" folder
+]
 
-MEDIA_ROOT = BASE_DIR / "uploads"
 MEDIA_URL = "/media/"
+MEDIA_ROOT = os.path.join(BASE_DIR, "uploads")
 
 # WhiteNoise for static file handling
 INSTALLED_APPS.append("whitenoise.runserver_nostatic")
 MIDDLEWARE.insert(1, "whitenoise.middleware.WhiteNoiseMiddleware")
-
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
@@ -164,5 +164,4 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 LOGIN_URL = '/user/login_page/'
 
-# SESSION_ENGINE = 'django.contrib.sessions.backends.db'  # Default: Use database-backed sessions
-# SESSION_COOKIE_AGE = 1209600  # 2 weeks
+STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
