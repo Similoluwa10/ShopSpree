@@ -1,0 +1,24 @@
+ 
+# Python
+*.pyc
+__pycache__/
+
+# Virtual environments
+venv/
+env/
+*.env
+.venv/
+
+
+# Django specific
+# media/
+
+# Ignore IDE or editor-specific files
+*.vscode/
+.idea/
+
+# Ignore migrations if desired
+
+
+# Others
+#staticfiles/

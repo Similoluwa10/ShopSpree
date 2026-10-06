@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block styles %} {% static 'Homepage_css/productpage.css'%} {% endblock %}
+
+{% block content %}
+    <!-- Included the navigation -->
+    {% include "includes/nav.html" %}
+
+    <div class="main-section p-5 mt-5">
+
+        <div class="product-card card" style="" bis_skin_checked="1">
+            <img src="{{ product.image_url }}" class="card-img-top" alt="...">
+    
+            <div class="product-card-body card-body d-flex align-items-center" width="80%" height="400px" bis_skin_checked="1" >
+                <div class="mx-3">
+                    <h5 class="card-title">{{ product.name }}</h5>
+                    <p class="card-text">
+                        ${{ product.price }}
+                    </p>
+                </div>
+                <a href="{% url 'cart:cart_add' product.slug %}" class="add-to-cart-btn btn ">Add to cart</a>
+            </div>
+        </div>
+
+    </div>
+
+    {% include "includes/footer.html"%}
+
+{% endblock %}
