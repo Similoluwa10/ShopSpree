@@ -1,0 +1,88 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block styles %} {% static 'Homepage_css/styles.css'%} {% endblock %}
+
+{% block content %}
+<div class="main-section" height="800px">
+
+    <!-- Included the navigation -->
+    {% include "includes/nav.html" %} 
+    <div class="intro-section">
+
+        <div class="carousel-section pt-3">
+            <div id="carouselExampleAutoplaying" class="carousel slide py-2" data-bs-ride="carousel">
+                <div class="carousel-inner">
+                    <div class="carousel-item active" data-bs-interval="3000">
+                        <img src="{% static 'carousel_imgs/carousel-image-5.jpg' %}" class="img-fluid d-block w-100" alt="...">
+                    </div>
+                    <div class="carousel-item active" data-bs-interval="3000">
+                        <img src="{% static 'carousel_imgs/carousel-image-2.jpg' %}" class="img-fluid d-block w-100" alt="...">
+                    </div>
+                    <div class="carousel-item" data-bs-interval="3000">
+                        <img src="{% static 'carousel_imgs/carousel-image-8.jpg' %}" class="img-fluid d-block w-100" alt="...">
+                    </div>
+                    <div class="carousel-item" data-bs-interval="3000">
+                        <img src="{% static 'carousel_imgs/carousel-image-9.jpg' %}" class="img-fluid d-block w-100" alt="...">
+                    </div>
+
+                    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleAutoplaying"
+                        data-bs-slide="prev">
+                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Previous</span>
+                    </button>
+                    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleAutoplaying"
+                        data-bs-slide="next">
+                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Next</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="product-display-section">
+
+        <div class="product-group-display">
+            <h3>Our sections</h3>
+
+            <div class="product-groups-container row justify-content-center align-items-center">
+                {% for category in categories %}
+                    <a class="product-group card col-lg-2 col-md-3 col-sm-3 col-xs-4" 
+                    href="{% url 'catalog:category_page' category.name category.slug %}">
+                        <div>
+                            <img src="{{category.image.url}}" width="100%" class="card-img-top" alt="">
+                            <div class="card-body">
+                                <p class="card-text">{{category.name}}</p>
+                            </div>
+                        </div>
+                    </a>
+                {% endfor %}
+            </div>
+        </div>
+
+        <div class="product-deals-display">
+            <h3>Today's deals</h3>
+            <div class="products-container row justify-content-center align-items-center">
+                {% for product in products %}
+                <a class="product card col-xl-2 col-lg-3 col-md-4 col-sm-6 col-xs-6" 
+                href="{% url 'catalog:product_page' product.name product.slug %}">
+                    <div>
+                        <img src="{{product.image.url}}" width="100%" alt="" class="card-img-top">
+                        <div class="card-body">
+                            <p class="card-text" style="margin-bottom: 7px;">{{product.name}}</p>
+                            <p class="card-text fw-bold">₦{{product.price}}</p>
+                        </div>
+                    </div>
+                </a>
+                {% endfor %}
+            </div>
+        </div>
+
+    </div>
+
+    {% include "includes/footer.html"%}
+
+</div>
+
+{% endblock %}

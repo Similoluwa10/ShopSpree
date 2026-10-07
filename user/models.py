@@ -1,12 +1,6 @@
 from django.db import models
 
-
-class User(models.Model):
-    username = models.CharField(max_length=30, null=True)
-    email = models.EmailField()
-    password = models.CharField(max_length=30)
-    
-    def __str__(self):
-        return self.username
-    
-    
+# User model removed — this app now uses Django's built-in
+# django.contrib.auth.models.User via settings.AUTH_USER_MODEL.
+# If you need extra profile fields, create a Profile model here
+# with a OneToOneField to settings.AUTH_USER_MODEL.

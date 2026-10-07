@@ -1,0 +1,64 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block styles %} {% static 'Homepage_css/productpage.css'%} {% endblock %}
+
+{% block content %}
+    {% include "includes/nav.html" %}
+
+    <div class="main-section p-5 mt-5">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <h2>Order #{{ order.pk }}</h2>
+            <span class="badge bg-{% if order.status == 'paid' %}success{% elif order.status == 'pending' %}warning{% elif order.status == 'cancelled' %}danger{% else %}info{% endif %} fs-6">
+                {{ order.get_status_display }}
+            </span>
+        </div>
+
+        <div class="card p-4 mb-3">
+            <h4>Items</h4>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Product</th>
+                        <th>Qty</th>
+                        <th>Price (at purchase)</th>
+                        <th>Subtotal</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for item in order.items.all %}
+                    <tr>
+                        <td>{{ item.product.name }}</td>
+                        <td>{{ item.quantity }}</td>
+                        <td>₦{{ item.price_at_purchase }}</td>
+                        <td>₦{{ item.get_total_price }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <td colspan="3" class="fw-bold">Total</td>
+                        <td class="fw-bold">₦{{ order.total_amount }}</td>
+                    </tr>
+                </tfoot>
+            </table>
+        </div>
+
+        {% if order.shipping_address %}
+        <div class="card p-4 mb-3">
+            <h4>Shipping Address</h4>
+            <p>{{ order.shipping_address }}</p>
+        </div>
+        {% endif %}
+
+        <p class="text-muted">Placed on {{ order.created_at|date:"F j, Y, g:i a" }}</p>
+
+        {% if order.status == 'pending' %}
+        <a href="{% url 'payments:initiate_payment' order.pk %}" class="btn btn-success btn-lg">Pay Now</a>
+        {% endif %}
+
+        <a href="{% url 'orders:order_history' %}" class="btn btn-outline-secondary">← Back to Orders</a>
+    </div>
+
+    {% include "includes/footer.html" %}
+{% endblock %}

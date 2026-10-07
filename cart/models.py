@@ -1,11 +1,17 @@
 from django.db import models
-from django.contrib.auth.models import User
-from products.models import Product
+from django.conf import settings
+from catalog.models import Product
+
 
 class Cart(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE, null=True, blank=True)
+    user = models.OneToOneField(
+        settings.AUTH_USER_MODEL,
+        on_delete=models.CASCADE,
+        null=True,
+        blank=True,
+    )
     created_at = models.DateTimeField(auto_now_add=True)
-    
+
     def get_total_price(self):
         return sum(item.get_total_price() for item in self.items.all())
 
@@ -17,4 +23,3 @@ class CartItem(models.Model):
 
     def get_total_price(self):
         return self.product.price * self.quantity
-

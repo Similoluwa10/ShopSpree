@@ -1,0 +1,62 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block styles %} {% static 'Homepage_css/productpage.css'%} {% endblock %}
+
+{% block content %}
+    {% include "includes/nav.html" %}
+
+    <div class="main-section p-5 mt-5">
+        <h2 class="mb-4">Checkout</h2>
+
+        <div class="row">
+            <div class="col-md-7">
+                <div class="card p-4 mb-3">
+                    <h4>Order Summary</h4>
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Product</th>
+                                <th>Qty</th>
+                                <th>Price</th>
+                                <th>Subtotal</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for item in cart.items.all %}
+                            <tr>
+                                <td>{{ item.product.name }}</td>
+                                <td>{{ item.quantity }}</td>
+                                <td>₦{{ item.product.price }}</td>
+                                <td>₦{{ item.get_total_price }}</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                        <tfoot>
+                            <tr>
+                                <td colspan="3" class="fw-bold">Total</td>
+                                <td class="fw-bold">₦{{ cart.get_total_price }}</td>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+            </div>
+
+            <div class="col-md-5">
+                <div class="card p-4">
+                    <h4>Shipping Details</h4>
+                    <form method="POST">
+                        {% csrf_token %}
+                        <div class="mb-3">
+                            <label for="shipping_address" class="form-label">Shipping Address</label>
+                            <textarea class="form-control" id="shipping_address" name="shipping_address" rows="4" required></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary w-100">Place Order</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {% include "includes/footer.html" %}
+{% endblock %}
