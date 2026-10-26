@@ -1,6 +1,14 @@
 from django.db import models
+from django.contrib.auth.models import AbstractUser
+from django.contrib.auth import get_user_model
+from django.conf import settings
+import secrets
 
-# User model removed — this app now uses Django's built-in
-# django.contrib.auth.models.User via settings.AUTH_USER_MODEL.
-# If you need extra profile fields, create a Profile model here
-# with a OneToOneField to settings.AUTH_USER_MODEL.
+class OtpToken(models.Model):
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name="otps")
+    otp_code = models.CharField(max_length=6, default=secrets.token_hex)
+    otp_created_at = models.DateTimeField(auto_now_add=True)
+    otp_expires_at = models.DateTimeField(blank=True, null=True)
+    
+    def __str__(self):
+        return self.user.username

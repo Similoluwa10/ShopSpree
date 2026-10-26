@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 {% load static %}
 
-{% block styles %} {% static 'Homepage_css/styles.css'%} {% endblock %}
+{% block styles %}<link rel="stylesheet" href="{% static 'Homepage_css/styles.css' %}">{% endblock %}
 
 {% block content %}
 <div class="main-section" height="800px">
@@ -51,7 +51,7 @@
                     <a class="product-group card col-lg-2 col-md-3 col-sm-3 col-xs-4" 
                     href="{% url "category_page" category.name category.slug %}">
                         <div>
-                            <img src="{{category.image.url}}" width="100%" class="card-img-top" alt="">
+                            <img src="{{category.image_url}}" width="100%" class="card-img-top" alt="">
                             <div class="card-body">
                                 <p class="card-text">{{category.name}}</p>
                             </div>
@@ -68,7 +68,7 @@
                 <a class="product card col-xl-2 col-lg-3 col-md-4 col-sm-6 col-xs-6" 
                 href="{% url "product_page" product.name product.slug %}">
                     <div>
-                        <img src="{{product.image.url}}" width="100%" alt="" class="card-img-top">
+                        <img src="{{product.image_url}}" width="100%" alt="" class="card-img-top">
                         <div class="card-body">
                             <p class="card-text" style="margin-bottom: 7px;">{{product.name}}</p>
                             <p class="card-text fw-bold">₦{{product.price}}</p>

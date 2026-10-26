@@ -22,10 +22,8 @@ class Product(models.Model):
     image_url = models.CharField(max_length=255, null=True, blank=True)
     image = models.ImageField(blank=True, upload_to='product_imgs')
     slug = models.SlugField(blank=True)
-    category = models.ForeignKey(
+    categories = models.ManyToManyField(
         Category,
-        on_delete=models.SET_NULL,
-        null=True,
         blank=True,
         related_name='products',
     )

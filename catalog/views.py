@@ -21,7 +21,7 @@ def product_page(request, product_name, product_slug):
 def category_page(request, category_name, category_slug):
     """View for category pages showing products in that category."""
     category = get_object_or_404(Category, slug=category_slug)
-    products = Product.objects.filter(category=category)
+    products = Product.objects.filter(categories=category)
     return render(request, 'catalog/category_detail.html', {
         'category': category,
         'products': products,

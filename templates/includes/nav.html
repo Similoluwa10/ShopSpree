@@ -1,77 +1,102 @@
 {% load static %}
 
-<nav class="navbar navbar-expand-lg fixed-top bg-body-tertiary px-sm-3 mb-5">
-    <div class="container-fluid d-flex justify-content-around">
-        <div class="navbar-brand-container mb-lg-0">
-            <a class="navbar-brand" href="{% url 'storefront:homepage' %}">Shopspree</a>
-        </div>
-
-        <form class="d-flex" role="search">
-            <input class="form-control me-2" type="search" placeholder="Search products, brands and categories"
-                aria-label="Search">
-            <button class="btn navbar-form-button" type="submit">Search</button>
-        </form>
+<nav class="navbar navbar-expand-lg fixed-top navbar-shopspree">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="{% url 'storefront:homepage' %}">
+            <i class="bi bi-bag-fill brand-icon"></i>
+            Shopspree
+        </a>
 
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
             aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
 
-        <div class="collapse navbar-collapse" id="navbarSupportedContent" style="flex-grow: 0;">
-            <ul class="navbar-nav my-2 my-lg-0">
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <!-- Search bar -->
+            <form class="d-flex navbar-search-form" role="search">
+                <div class="input-group">
+                    <input class="form-control navbar-search-input" type="search"
+                        placeholder="Search products, brands and categories" aria-label="Search">
+                    <button class="btn navbar-search-btn" type="submit">
+                        <i class="bi bi-search"></i>
+                    </button>
+                </div>
+            </form>
 
+            <!-- Right-side nav items -->
+            <ul class="navbar-nav align-items-center">
                 <!-- Account dropdown -->
                 <li class="nav-item dropdown">
-                    
-                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        Account
+                    <a class="nav-link nav-action dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                        data-bs-toggle="dropdown" aria-expanded="false">
+                        <i class="bi bi-person-circle"></i>
+                        <span>Account</span>
                     </a>
-                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <li class="dropdown-item">
-                            <button class="btn theme-color-button" href="#">Sign in</button>
-                        </li>
-                        <li>
-                            <hr class="dropdown-divider">
-                        </li>
-                        <li><a class="dropdown-item" href="#">My account</a></li>
-                        <li><a class="dropdown-item" href="{% url 'orders:order_history' %}">Orders</a></li>
-                        <li><a class="dropdown-item" href="#">Saved items</a></li>
+                    <ul class="dropdown-menu dropdown-menu-end navbar-dropdown" aria-labelledby="navbarDropdown">
+                        <li><a class="dropdown-item" href="#">
+                                <i class="bi bi-person me-2"></i>My Account
+                            </a></li>
+                        <li><a class="dropdown-item" href="{% url 'orders:order_history' %}">
+                                <i class="bi bi-box-seam me-2"></i>Orders
+                            </a></li>
+                        <li><a class="dropdown-item" href="#">
+                                <i class="bi bi-heart me-2"></i>Saved Items
+                            </a></li>
                     </ul>
                 </li>
 
                 <!-- Help dropdown -->
-                <li class="nav-item dropdown mx-2">
-                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                <li class="nav-item dropdown">
+                    <a class="nav-link nav-action dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
                         aria-expanded="false">
-                        Help
+                        <i class="bi bi-question-circle"></i>
+                        <span>Help</span>
                     </a>
-                    <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" href="#">Help centre</a></li>
-                        <li><a class="dropdown-item" href="#">Place an order</a></li>
-                        <li><a class="dropdown-item" href="#">Payment options</a></li>
-                        <li><a class="dropdown-item" href="#">Track an order</a></li>
+                    <ul class="dropdown-menu dropdown-menu-end navbar-dropdown">
+                        <li><a class="dropdown-item" href="#">
+                                <i class="bi bi-info-circle me-2"></i>Help Centre
+                            </a></li>
+                        <li><a class="dropdown-item" href="#">
+                                <i class="bi bi-bag-plus me-2"></i>Place an Order
+                            </a></li>
+                        <li><a class="dropdown-item" href="#">
+                                <i class="bi bi-credit-card me-2"></i>Payment Options
+                            </a></li>
+                        <li><a class="dropdown-item" href="#">
+                                <i class="bi bi-truck me-2"></i>Track an Order
+                            </a></li>
                     </ul>
                 </li>
 
-                <li class="nav-item cart-section mx-2">
-                    <i class="bi bi-cart" style="font-size: 1.2rem;"></i>
-                    <a class="nav-link" href="{% url 'cart:cart_page' %}">Cart</a>
+                <!-- Cart -->
+                <li class="nav-item">
+                    <a class="nav-link nav-action nav-action-cart" href="{% url 'cart:cart_page' %}">
+                        <i class="bi bi-cart3"></i>
+                        <span>Cart</span>
+                    </a>
                 </li>
 
-                <li class="nav-item nav-link account-section mx-2 ">
-                    
-                    {% if user.is_authenticated %} 
-                        <span> {{ user.username }}</span>
-                        <li class="nav-item mx-2">
-                            <a href="{% url 'logout' %}" class="btn theme-color-button mt-1">Logout</a>
-                        </li>
+                <!-- Divider
+                <li class="nav-item">
+                    <span class="nav-divider"></span>
+                </li> -->
+
+                <!-- Auth -->
+                <li class="nav-item">
+                    {% if user.is_authenticated %}
+                    <div class="nav-auth-section">
+                        <span class="nav-username">
+                            <i class="bi bi-person-check-fill me-1"></i>{{ user.username }}
+                        </span>
+                        <a href="{% url 'logout' %}" class="btn btn-nav-auth btn-logout">Logout</a>
+                    </div>
                     {% else %}
-                        <i class="bi bi-person-circle" style="font-size: 1.2em;"></i>
-                        <li class="nav-item mx-2">
-                            <a href="{% url 'login_page' %}" class="btn theme-color-button mt-1">Login</a>
-                        </li>
-                    {% endif %}  
-                </li>              
+                    <a href="{% url 'login_page' %}" class="btn btn-nav-auth btn-login">
+                        <!-- <i class="bi bi-box-arrow-in-right me-1"></i> --> Login
+                    </a>
+                    {% endif %}
+                </li>
             </ul>
         </div>
     </div>

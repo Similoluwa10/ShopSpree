@@ -1,16 +1,21 @@
 
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.password_validation import validate_password
 from django.contrib import messages
-from .forms import LoginForm, SignupForm
+from .forms import LoginForm, SignupForm, OtpForm
 from django.contrib.auth.models import User
-
+# from django_otp.decorators import otp_required
+# from django_otp import send_otp
+from django.core.exceptions import ValidationError
+from django.db.utils import IntegrityError
 
 def login_user(request):
     if request.method == 'POST':
-        username = request.POST['username']
+        first_name = request.POST['first_name']
+        email = request.POST['email']
         password = request.POST['password']
-        user = authenticate(request, username = username, password = password)
+        user = authenticate(request, email = email, password = password)
         
         if user is not None:
             login(request, user)
@@ -32,33 +37,56 @@ def logout_user(request):
 def signup_user(request):
     if request.method == 'POST':
         signup_form = SignupForm(request.POST)
-        if signup_form.is_valid():
-            username = signup_form.cleaned_data['username']
+        if signup_form.is_valid():      
+            # username = signup_form.cleaned_data['username']
+            first_name = signup_form.cleaned_data['first_name']
+            last_name = signup_form.cleaned_data['last_name']
             email = signup_form.cleaned_data['email']
-            password = signup_form.cleaned_data['password']
+            password = signup_form.cleaned_data['password'] 
+            confirm_password = signup_form.cleaned_data['confirm_password']           
+
+            if password != confirm_password:
+                messages.info(request, 'Passwords do not match')
+                return redirect('signup_page')
+
+            try: 
+                validate_password(password, user=None, password_validators=None)
+            except ValidationError as e:
+                for each in e:
+                    messages.info(request, each)
+                return redirect('signup_page')
             
-            signup_account = User(
-                username = username,
-                email = email,
-            ) 
+            try:
+                signup_account = User(
+                    username = email,
+                    first_name = first_name,
+                    last_name = last_name,
+                    email = email,
+                ) 
+                signup_account.set_password(password)
+                print(email, password, signup_account)
+                signup_account.save() 
+            except IntegrityError as e:
+                messages.info(request, "Email already exists")
+                return redirect('signup_page')            
             
-            signup_account.set_password(password)
-            print(username, email, password, signup_account)
-            signup_account.save() 
             messages.success(request, "Your account has been created successfully!")
-            return redirect("login_page")          
+            return redirect("login_page") 
+                     
     
     signup_form = SignupForm()                             
     return render(request, 'signup.html', {'signup_form': signup_form,}) 
 
 
+def otp_verify(request):
+    if request.method == 'POST':
+        otp_form = OtpForm(request.POST)
+        if otp_form.is_valid():
+            otp = otp_form.cleaned_data['otp']
+            
+    otp_form = OtpForm()
+    return render(request, 'otp.html', {'otp_form': otp_form})
 
 
-# signup_form = SignupForm(request.POST)
-
-# serializer = DrinkSerializer(data=request.data)
-
-# These are both ways of getting data from a form, 
-# but can you explain both of them and how they work differently, 
-# and also, can you explain how exactly data is gotten from a form or a post request
-
+def resend_otp(request):
+    pass

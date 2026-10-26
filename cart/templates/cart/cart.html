@@ -1,7 +1,10 @@
 {% extends 'base.html' %}
 {% load static %}
 
-{% block styles %} {% static 'cart_css/cart.css'%} {% endblock %}
+{% block styles %}
+<link rel="stylesheet" href="{% static 'Homepage_css/styles.css' %}">
+<link rel="stylesheet" href="{% static 'cart_css/cart.css' %}">
+{% endblock %}
 
 
 {% block content %}

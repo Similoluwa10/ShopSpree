@@ -1,32 +1,55 @@
 {% extends 'base.html' %}
 {% load static %}
-{% block styles %} {% static 'user_css/login.css'%} {% endblock %}
+{% block styles %}<link rel="stylesheet" href="{% static 'user_css/login.css' %}">{% endblock %}
 
 {% block content %}
 
-    <!-- Included the navigation -->
-    {% include "includes/nav.html" %}
+<!-- Included the navigation -->
+{% include "includes/nav.html" %}
 
-    <form id="signup_form" class="signup-form mb-5" action="" method="POST">
-        {% csrf_token %}
-        <h2>Signup to <span class="shopspree">Shopspree</span></h2>
-        
-        <div class="form-div">
-            {% for field in signup_form %}
-                {{field.label_tag}}
-                <br>
-                {{field}}
-                <br>
-            {% endfor %}
+<form id="signup_form" class="signup-form mb-5" action="" method="POST">
+    {% csrf_token %}
+    <h2>Signup to <span class="shopspree">Shopspree</span></h2>
 
-            <button class="submit-button btn mt-3" id="signup-submit-button" type="submit">Submit</button>
-            <p> Already have an account?  <a href="{% url 'login_page'%}" class="login-link">Login</a>
-             </p>
+    <div class="form-div">
+        {% for field in signup_form %}
+        {{field.label_tag}}
+        <br>
+        {{field}}
+        <br>
+        {% endfor %}
+
+        <!-- This displays the error messages -->
+        {% if messages %}
+        {% for message in messages %}
+        <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+            {{ message }} <br />
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
         </div>
+        {% endfor %}
+        {% endif %}
 
-    </form>
+        {% if form.errors %}
+        <div class="alert alert-danger">
+            <p>Please correct the errors below:</p>
+            <ul>
+                {% for field, errors in form.errors.items %}
+                {% for error in errors %}
+                <li><strong>{{ field|capfirst }}:</strong> {{ error }}</li> <br />
+                {% endfor %}
+                {% endfor %}
+            </ul>
+        </div>
+        {% endif %}
 
-    {% include "includes/footer.html"%}
+        <button class="submit-button btn mt-3" id="signup-submit-button" type="submit">Submit</button>
+        <p> Already have an account? <a href="{% url 'login_page'%}" class="login-link">Login</a>
+        </p>
+    </div>
 
-    
+</form>
+
+{% include "includes/footer.html"%}
+
+
 {% endblock %}
