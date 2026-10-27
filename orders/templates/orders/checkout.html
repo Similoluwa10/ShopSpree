@@ -1,62 +1,96 @@
 {% extends 'base.html' %}
 {% load static %}
 
-{% block styles %}<link rel="stylesheet" href="{% static 'Homepage_css/productpage.css' %}">{% endblock %}
+{% block styles %}
+<link rel="stylesheet" href="{% static 'Homepage_css/styles.css' %}">
+<link rel="stylesheet" href="{% static 'orders_css/orders.css' %}">
+{% endblock %}
 
 {% block content %}
-    {% include "includes/nav.html" %}
+{% include "includes/nav.html" %}
 
-    <div class="main-section p-5 mt-5">
-        <h2 class="mb-4">Checkout</h2>
+<div class="main-section orders-page mt-5">
+    <h2 class="orders-page-title">
+        <i class="bi bi-bag-check"></i> Checkout
+    </h2>
 
-        <div class="row">
-            <div class="col-md-7">
-                <div class="card p-4 mb-3">
-                    <h4>Order Summary</h4>
-                    <table class="table">
-                        <thead>
-                            <tr>
-                                <th>Product</th>
-                                <th>Qty</th>
-                                <th>Price</th>
-                                <th>Subtotal</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {% for item in cart.items.all %}
-                            <tr>
-                                <td>{{ item.product.name }}</td>
-                                <td>{{ item.quantity }}</td>
-                                <td>₦{{ item.product.price }}</td>
-                                <td>₦{{ item.get_total_price }}</td>
-                            </tr>
-                            {% endfor %}
-                        </tbody>
-                        <tfoot>
-                            <tr>
-                                <td colspan="3" class="fw-bold">Total</td>
-                                <td class="fw-bold">₦{{ cart.get_total_price }}</td>
-                            </tr>
-                        </tfoot>
-                    </table>
-                </div>
-            </div>
+    <div class="checkout-layout">
 
-            <div class="col-md-5">
-                <div class="card p-4">
-                    <h4>Shipping Details</h4>
-                    <form method="POST">
-                        {% csrf_token %}
-                        <div class="mb-3">
-                            <label for="shipping_address" class="form-label">Shipping Address</label>
-                            <textarea class="form-control" id="shipping_address" name="shipping_address" rows="4" required></textarea>
-                        </div>
-                        <button type="submit" class="btn btn-primary w-100">Place Order</button>
-                    </form>
-                </div>
-            </div>
+        <!-- Order Summary Card -->
+        <div class="orders-card">
+            <h3 class="orders-card-title">
+                <i class="bi bi-receipt"></i> Order Summary
+            </h3>
+            <div class="orders-divider"></div>
+
+            <table class="checkout-items-table">
+                <thead>
+                    <tr>
+                        <th>Product</th>
+                        <th>Qty</th>
+                        <th>Price</th>
+                        <th>Subtotal</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for item in cart.items.all %}
+                    <tr>
+                        <td>
+                            <div class="checkout-product-cell">
+                                <img src="{{ item.product.image_url }}" alt="{{ item.product.name }}" class="checkout-product-thumb">
+                                <span class="checkout-product-name">{{ item.product.name }}</span>
+                            </div>
+                        </td>
+                        <td>{{ item.quantity }}</td>
+                        <td>₦{{ item.product.price }}</td>
+                        <td>₦{{ item.get_total_price }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+                <tfoot>
+                    <tr class="checkout-total-row">
+                        <td colspan="3">Total</td>
+                        <td>₦{{ cart.get_total_price }}</td>
+                    </tr>
+                </tfoot>
+            </table>
         </div>
-    </div>
 
-    {% include "includes/footer.html" %}
+        <!-- Shipping Details Card -->
+        <div>
+            <div class="orders-card">
+                <h3 class="orders-card-title">
+                    <i class="bi bi-truck"></i> Shipping Details
+                </h3>
+                <div class="orders-divider"></div>
+
+                <form method="POST">
+                    {% csrf_token %}
+                    <div style="margin-bottom: 1rem;">
+                        <label for="shipping_address" class="checkout-form-label">Shipping Address</label>
+                        <textarea class="checkout-textarea" id="shipping_address" name="shipping_address"
+                            placeholder="Enter your full delivery address including street, city, state and zip code..."
+                            rows="4" required></textarea>
+                    </div>
+
+                    <button type="submit" class="checkout-submit-btn">
+                        <i class="bi bi-lock-fill"></i> Place Order
+                    </button>
+
+                    <div class="checkout-secure-note">
+                        <i class="bi bi-shield-lock-fill"></i>
+                        <span>Your order details are secure and encrypted</span>
+                    </div>
+                </form>
+            </div>
+
+            <a href="{% url 'cart:cart_page' %}" class="order-back-btn" style="width: 100%; justify-content: center;">
+                <i class="bi bi-arrow-left"></i> Back to Cart
+            </a>
+        </div>
+
+    </div>
+</div>
+
+{% include "includes/footer.html" %}
 {% endblock %}

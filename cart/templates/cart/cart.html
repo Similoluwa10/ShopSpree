@@ -12,50 +12,212 @@
 <!-- Included the navigation -->
 {% include "includes/nav.html" %}
 
-<div class="main-section mt-5 p-5">
-    <h2 class="cart-heading text-center mb-3 fw-bold">Your Shopping Cart</h2>
+<div class="main-section cart-page mt-5">
+    <h2 class="cart-heading">
+        <i class="bi bi-cart3"></i> Your Shopping Cart
+    </h2>
 
     {% if cart and cart.items.all %}
-    <table class="table mb-3">
-        <thead>
-            <tr>
-                <th>Product</th>
-                <th>Quantity</th>
-                <th>Price</th>
-                <th>Total</th>
-                <th>Remove</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for item in cart.items.all %}
-            <tr>
-                <td>{{ item.product.name }}</td>
-                <td>{{ item.quantity }}</td>
-                <td>₦{{ item.product.price }}</td>
-                <td>₦{{ item.get_total_price }}</td>
-                <td>
-                    <a class="remove" href="{% url 'cart:cart_remove' item.product.slug %}">Remove</a>
-                </td>
-            </tr>
-            {% endfor %}
-        </tbody>
-    </table>
+    <div class="cart-layout">
 
-    <div class="d-flex flex-column justify-content-center align-items-center">
-        <p class="text-center"><strong>Total Price:</strong> ₦{{ cart.get_total_price }}</p>
-        <div class="d-flex justify-content-center">
-            <a href="{% url 'storefront:homepage' %}" class="btn shopspree-btn mx-3" type="submit">Add more products</a>
-            <a href="{% url 'payments:initiate_payment'%}" class="btn shopspree-btn" type="submit">Checkout</a>
+        <!-- Cart Items List -->
+        <div class="cart-items-section">
+            {% for item in cart.items.all %}
+            <div class="cart-item-card" id="cart-item-{{ item.product.slug }}">
+                <div class="cart-item-image">
+                    <img src="{{ item.product.image_url }}" alt="{{ item.product.name }}">
+                </div>
+                <div class="cart-item-details">
+                    <div class="cart-item-info">
+                        <h4 class="cart-item-name">
+                            <a href="{% url 'catalog:product_page' item.product.name item.product.slug %}">
+                                {{ item.product.name }}
+                            </a>
+                        </h4>
+                        <p class="cart-item-price">₦{{ item.product.price }} each</p>
+                        {% if item.product.stock > 0 %}
+                        <span class="cart-stock-badge in-stock">
+                            <i class="bi bi-check-circle-fill"></i> In Stock
+                        </span>
+                        {% else %}
+                        <span class="cart-stock-badge out-of-stock">
+                            <i class="bi bi-x-circle-fill"></i> Out of Stock
+                        </span>
+                        {% endif %}
+                    </div>
+                    <div class="cart-item-actions">
+                        <div class="cart-qty-controls">
+                            <button class="cart-qty-btn" type="button"
+                                onclick="updateCartQty('{{ item.product.slug }}', 'decrement')">
+                                <i class="bi bi-dash"></i>
+                            </button>
+                            <span class="cart-qty-value" id="cart-qty-{{ item.product.slug }}">
+                                {{ item.quantity }}
+                            </span>
+                            <button class="cart-qty-btn" type="button"
+                                onclick="updateCartQty('{{ item.product.slug }}', 'increment')">
+                                <i class="bi bi-plus"></i>
+                            </button>
+                        </div>
+                        <div class="cart-item-total" id="cart-item-total-{{ item.product.slug }}">
+                            ₦{{ item.get_total_price }}
+                        </div>
+                        <button class="cart-remove-btn" type="button"
+                            onclick="removeCartItem('{{ item.product.slug }}')">
+                            <i class="bi bi-trash3"></i> Remove
+                        </button>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
         </div>
+
+        <!-- Cart Summary Sidebar -->
+        <div class="cart-summary-section">
+            <div class="cart-summary-card">
+                <h3 class="cart-summary-title">Cart Summary</h3>
+                <div class="cart-summary-divider"></div>
+
+                <div class="cart-summary-row">
+                    <span>Subtotal ({{ cart.items.count }} item{{ cart.items.count|pluralize }})</span>
+                    <span id="cart-subtotal">₦{{ cart.get_total_price }}</span>
+                </div>
+                <div class="cart-summary-row">
+                    <span>Delivery</span>
+                    <span class="delivery-free">Free</span>
+                </div>
+
+                <div class="cart-summary-divider"></div>
+
+                <div class="cart-summary-row cart-summary-total">
+                    <span>Total</span>
+                    <span id="cart-total">₦{{ cart.get_total_price }}</span>
+                </div>
+
+                <a href="{% url 'orders:checkout' %}" class="cart-checkout-btn">
+                    <i class="bi bi-lock-fill"></i> Proceed to Checkout
+                </a>
+                <a href="{% url 'storefront:homepage' %}" class="cart-continue-btn">
+                    <i class="bi bi-arrow-left"></i> Continue Shopping
+                </a>
+            </div>
+        </div>
+
     </div>
     {% else %}
-    <div class="d-flex justify-content-center">
-        <span class="text-center fs-5 mx-3">Your cart is empty!!!</span>
-        <a href="{% url 'storefront:homepage' %}" class="btn shopspree-btn" type="submit">Check out our products</a>
+    <div class="cart-empty">
+        <div class="cart-empty-icon">
+            <i class="bi bi-cart-x"></i>
+        </div>
+        <h3>Your cart is empty</h3>
+        <p>Looks like you haven't added any items to your cart yet.</p>
+        <a href="{% url 'storefront:homepage' %}" class="btn shopspree-btn">
+            <i class="bi bi-shop"></i> Start Shopping
+        </a>
     </div>
     {% endif %}
 </div>
 
 {% include "includes/footer.html"%}
+
+<!-- AJAX Scripts for Cart Operations -->
+<script>
+    function getCookie(name) {
+        let cookieValue = null;
+        if (document.cookie && document.cookie !== '') {
+            const cookies = document.cookie.split(';');
+            for (let i = 0; i < cookies.length; i++) {
+                const cookie = cookies[i].trim();
+                if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                    break;
+                }
+            }
+        }
+        return cookieValue;
+    }
+
+    function updateCartBadge(count) {
+        const badge = document.getElementById('cart-badge');
+        if (badge) {
+            if (count > 0) {
+                badge.textContent = count;
+                badge.style.display = 'flex';
+            } else {
+                badge.style.display = 'none';
+            }
+        }
+    }
+
+    function updateCartQty(slug, action) {
+        fetch(`/cart/update/${slug}/`, {
+            method: 'POST',
+            headers: {
+                'X-Requested-With': 'XMLHttpRequest',
+                'X-CSRFToken': getCookie('csrftoken'),
+                'Content-Type': 'application/x-www-form-urlencoded',
+            },
+            body: `action=${action}`
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                if (data.removed) {
+                    // Remove the card from DOM with animation
+                    const card = document.getElementById(`cart-item-${slug}`);
+                    if (card) {
+                        card.style.transition = 'opacity 0.3s ease, transform 0.3s ease';
+                        card.style.opacity = '0';
+                        card.style.transform = 'translateX(-20px)';
+                        setTimeout(() => {
+                            card.remove();
+                            // If no items left, reload to show empty state
+                            if (document.querySelectorAll('.cart-item-card').length === 0) {
+                                location.reload();
+                            }
+                        }, 300);
+                    }
+                } else {
+                    document.getElementById(`cart-qty-${slug}`).textContent = data.quantity;
+                    document.getElementById(`cart-item-total-${slug}`).textContent = `₦${data.item_total}`;
+                }
+                document.getElementById('cart-subtotal').textContent = `₦${data.cart_total}`;
+                document.getElementById('cart-total').textContent = `₦${data.cart_total}`;
+                updateCartBadge(data.cart_item_count);
+            }
+        })
+        .catch(error => console.error('Error:', error));
+    }
+
+    function removeCartItem(slug) {
+        fetch(`/cart/remove/${slug}/`, {
+            method: 'GET',
+            headers: {
+                'X-Requested-With': 'XMLHttpRequest',
+            }
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                const card = document.getElementById(`cart-item-${slug}`);
+                if (card) {
+                    card.style.transition = 'opacity 0.3s ease, transform 0.3s ease';
+                    card.style.opacity = '0';
+                    card.style.transform = 'translateX(-20px)';
+                    setTimeout(() => {
+                        card.remove();
+                        if (document.querySelectorAll('.cart-item-card').length === 0) {
+                            location.reload();
+                        }
+                    }, 300);
+                }
+                document.getElementById('cart-subtotal').textContent = `₦${data.cart_total}`;
+                document.getElementById('cart-total').textContent = `₦${data.cart_total}`;
+                updateCartBadge(data.cart_item_count);
+            }
+        })
+        .catch(error => console.error('Error:', error));
+    }
+</script>
 
 {% endblock %}

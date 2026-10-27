@@ -3,7 +3,7 @@ from phonenumber_field.formfields import PhoneNumberField
 from django_password_eye.fields import PasswordEye
 
 class LoginForm(forms.Form):
-    username = forms.CharField()
+    email = forms.EmailField()
     password = forms.CharField(widget=forms.PasswordInput)
 
 

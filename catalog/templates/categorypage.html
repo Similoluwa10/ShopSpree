@@ -1,27 +1,61 @@
 {% extends 'base.html' %}
 {% load static %}
 
-{% block styles %}<link rel="stylesheet" href="{% static 'Homepage_css/productpage.css' %}">{% endblock %}
+{% block styles %}
+<link rel="stylesheet" href="{% static 'Homepage_css/styles.css' %}">
+<link rel="stylesheet" href="{% static 'catalog_css/catalog.css' %}">
+{% endblock %}
 
 {% block content %}
-    <!-- Included the navigation -->
-    {% include "includes/nav.html" %}
+<!-- Included the navigation -->
+{% include "includes/nav.html" %}
 
-    <div class="main-section p-5 mt-5">
-        <div class="container d-flex justify-content-between mb-3">
-            <h2 class="card-title">{{ category.name }}</h2>
-            <a href="#" class="see-products-btn-top btn ">See our products</a>
-        </div>
+<div class="main-section category-detail-page mt-5">
 
-        <div class="category-card card" style="" bis_skin_checked="1">
-            <img src="{{ category.image_url }}" class="card-img-top" alt="...">
-    
-            <div class="category-card-body card-body d-flex align-items-center" width="80%" height="400px" bis_skin_checked="1" >  
-                <a href="#" class="see-products-btn btn ">See our products</a>
+    <!-- Category Header -->
+    <div class="category-header">
+        <div class="category-header-image-wrapper">
+            <img src="{{ category.image_url }}" class="category-header-img" alt="{{ category.name }}">
+            <div class="category-header-overlay">
+                <h1 class="category-header-title">{{ category.name }}</h1>
+                <p class="category-header-count">{{ products.count }} product{{ products.count|pluralize }} found</p>
             </div>
         </div>
     </div>
 
-    {% include "includes/footer.html"%}
+    <!-- Products Grid -->
+    <div class="category-products-section">
+        {% if products %}
+        <div class="category-products-grid">
+            {% for product in products %}
+            <a class="category-product-card" href="{% url 'catalog:product_page' product.name product.slug %}">
+                <div class="category-product-img-wrapper">
+                    <img src="{{ product.image_url }}" alt="{{ product.name }}">
+                </div>
+                <div class="category-product-info">
+                    <p class="category-product-name">{{ product.name }}</p>
+                    <p class="category-product-price">₦{{ product.price }}</p>
+                    {% if product.stock > 0 %}
+                    <span class="category-stock-tag in-stock">In Stock</span>
+                    {% else %}
+                    <span class="category-stock-tag out-of-stock">Out of Stock</span>
+                    {% endif %}
+                </div>
+            </a>
+            {% endfor %}
+        </div>
+        {% else %}
+        <div class="category-empty">
+            <i class="bi bi-box-seam"></i>
+            <h3>No products found</h3>
+            <p>We don't have any products in this category yet. Check back soon!</p>
+            <a href="{% url 'storefront:homepage' %}" class="btn shopspree-btn">Browse All Products</a>
+        </div>
+        {% endif %}
+    </div>
+
+</div>
+
+{% include "includes/footer.html"%}
 
 {% endblock %}

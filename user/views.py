@@ -12,17 +12,16 @@ from django.db.utils import IntegrityError
 
 def login_user(request):
     if request.method == 'POST':
-        first_name = request.POST['first_name']
         email = request.POST['email']
         password = request.POST['password']
-        user = authenticate(request, email = email, password = password)
-        
+        user = authenticate(request, username = email, password = password)
+                
         if user is not None:
             login(request, user)
             # messages.success(request, f' welcome {username} !!')
             return redirect('/')
         else:
-            # messages.info(request, f'account done not exit plz sign in')
+            messages.info(request, f'Incorrect Email or Password')
             pass
         
     login_form = LoginForm()
@@ -64,7 +63,7 @@ def signup_user(request):
                     email = email,
                 ) 
                 signup_account.set_password(password)
-                print(email, password, signup_account)
+                signup_account.is_active = True
                 signup_account.save() 
             except IntegrityError as e:
                 messages.info(request, "Email already exists")

@@ -1,5 +1,157 @@
 {% load static %}
 
-<footer style="height: 150px; background-color: rgba(20, 20, 20, 0.909); color: white; text-align: center; padding-top: 50px;">
-    <p> Copyright © 2025, DevWithSimiloluwa </p>
+<footer class="footer-shopspree">
+    <!-- Main Footer Content -->
+    <div class="footer-main">
+        <div class="container">
+            <div class="footer-grid">
+
+                <!-- Column 1: Brand & About -->
+                <div class="footer-col footer-brand-col">
+                    <a href="{% url 'storefront:homepage' %}" class="footer-brand">
+                        <i class="bi bi-bag-fill"></i>
+                        Shopspree
+                    </a>
+                    <p class="footer-about">
+                        Your one-stop destination for amazing deals on electronics, fashion, home essentials, and more. Shop smart, shop Shopspree.
+                    </p>
+                    <div class="footer-socials">
+                        <a href="#" class="footer-social-link" aria-label="Facebook">
+                            <i class="bi bi-facebook"></i>
+                        </a>
+                        <a href="#" class="footer-social-link" aria-label="Twitter">
+                            <i class="bi bi-twitter-x"></i>
+                        </a>
+                        <a href="#" class="footer-social-link" aria-label="Instagram">
+                            <i class="bi bi-instagram"></i>
+                        </a>
+                        <a href="#" class="footer-social-link" aria-label="YouTube">
+                            <i class="bi bi-youtube"></i>
+                        </a>
+                        <a href="#" class="footer-social-link" aria-label="LinkedIn">
+                            <i class="bi bi-linkedin"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Column 2: Quick Links -->
+                <div class="footer-col">
+                    <h4 class="footer-heading">Quick Links</h4>
+                    <ul class="footer-links">
+                        <li><a href="{% url 'storefront:homepage' %}"><i class="bi bi-chevron-right"></i> Home</a></li>
+                        <li><a href="#"><i class="bi bi-chevron-right"></i> New Arrivals</a></li>
+                        <li><a href="#"><i class="bi bi-chevron-right"></i> Best Sellers</a></li>
+                        <li><a href="#"><i class="bi bi-chevron-right"></i> Today's Deals</a></li>
+                        <li><a href="#"><i class="bi bi-chevron-right"></i> Gift Cards</a></li>
+                        <li><a href="#"><i class="bi bi-chevron-right"></i> Sell on Shopspree</a></li>
+                    </ul>
+                </div>
+
+                <!-- Column 3: Customer Service -->
+                <div class="footer-col">
+                    <h4 class="footer-heading">Customer Service</h4>
+                    <ul class="footer-links">
+                        <li><a href="#"><i class="bi bi-chevron-right"></i> Help Centre</a></li>
+                        <li><a href="#"><i class="bi bi-chevron-right"></i> Track Your Order</a></li>
+                        <li><a href="#"><i class="bi bi-chevron-right"></i> Shipping & Delivery</a></li>
+                        <li><a href="#"><i class="bi bi-chevron-right"></i> Returns & Refunds</a></li>
+                        <li><a href="#"><i class="bi bi-chevron-right"></i> Payment Options</a></li>
+                        <li><a href="#"><i class="bi bi-chevron-right"></i> Contact Us</a></li>
+                    </ul>
+                </div>
+
+                <!-- Column 4: About & Legal -->
+                <div class="footer-col">
+                    <h4 class="footer-heading">About Shopspree</h4>
+                    <ul class="footer-links">
+                        <li><a href="#"><i class="bi bi-chevron-right"></i> About Us</a></li>
+                        <li><a href="#"><i class="bi bi-chevron-right"></i> Careers</a></li>
+                        <li><a href="#"><i class="bi bi-chevron-right"></i> Press & Blog</a></li>
+                        <li><a href="#"><i class="bi bi-chevron-right"></i> Privacy Policy</a></li>
+                        <li><a href="#"><i class="bi bi-chevron-right"></i> Terms of Service</a></li>
+                        <li><a href="#"><i class="bi bi-chevron-right"></i> Cookie Policy</a></li>
+                    </ul>
+                </div>
+
+                <!-- Column 5: Newsletter & Contact -->
+                <div class="footer-col footer-newsletter-col">
+                    <h4 class="footer-heading">Stay in the Loop</h4>
+                    <p class="footer-newsletter-text">
+                        Subscribe to get exclusive deals, new arrivals, and insider-only discounts.
+                    </p>
+                    <form class="footer-newsletter-form" onsubmit="event.preventDefault();">
+                        <div class="footer-input-group">
+                            <input type="email" placeholder="Enter your email" class="footer-newsletter-input" required>
+                            <button type="submit" class="footer-newsletter-btn">
+                                <i class="bi bi-send-fill"></i>
+                            </button>
+                        </div>
+                    </form>
+
+                    <div class="footer-contact">
+                        <div class="footer-contact-item">
+                            <i class="bi bi-telephone-fill"></i>
+                            <span>+234 800 123 4567</span>
+                        </div>
+                        <div class="footer-contact-item">
+                            <i class="bi bi-envelope-fill"></i>
+                            <span>support@shopspree.com</span>
+                        </div>
+                        <div class="footer-contact-item">
+                            <i class="bi bi-clock-fill"></i>
+                            <span>Mon – Sat, 8AM – 9PM</span>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <!-- Payment & Trust Bar -->
+    <div class="footer-trust-bar">
+        <div class="container">
+            <div class="footer-trust-content">
+                <div class="footer-trust-item">
+                    <i class="bi bi-shield-lock-fill"></i>
+                    <span>Secure Payments</span>
+                </div>
+                <div class="footer-trust-item">
+                    <i class="bi bi-truck"></i>
+                    <span>Fast Delivery</span>
+                </div>
+                <div class="footer-trust-item">
+                    <i class="bi bi-arrow-counterclockwise"></i>
+                    <span>Easy Returns</span>
+                </div>
+                <div class="footer-trust-item">
+                    <i class="bi bi-headset"></i>
+                    <span>24/7 Support</span>
+                </div>
+                <div class="footer-payment-icons">
+                    <i class="bi bi-credit-card-2-front-fill" title="Credit Card"></i>
+                    <i class="bi bi-paypal" title="PayPal"></i>
+                    <i class="bi bi-wallet2" title="Wallet"></i>
+                    <i class="bi bi-bank" title="Bank Transfer"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bottom Bar -->
+    <div class="footer-bottom">
+        <div class="container">
+            <div class="footer-bottom-content">
+                <p class="footer-copyright">
+                    &copy; {{ year|default:"2025" }} Shopspree. Built with <i class="bi bi-heart-fill footer-heart"></i> by DevWithSimiloluwa
+                </p>
+                <div class="footer-bottom-links">
+                    <a href="#">Privacy</a>
+                    <a href="#">Terms</a>
+                    <a href="#">Sitemap</a>
+                    <a href="#">Accessibility</a>
+                </div>
+            </div>
+        </div>
+    </div>
 </footer>

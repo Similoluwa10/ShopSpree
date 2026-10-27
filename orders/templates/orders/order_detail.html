@@ -1,64 +1,96 @@
 {% extends 'base.html' %}
 {% load static %}
 
-{% block styles %}<link rel="stylesheet" href="{% static 'Homepage_css/productpage.css' %}">{% endblock %}
+{% block styles %}
+<link rel="stylesheet" href="{% static 'Homepage_css/styles.css' %}">
+<link rel="stylesheet" href="{% static 'orders_css/orders.css' %}">
+{% endblock %}
 
 {% block content %}
-    {% include "includes/nav.html" %}
+{% include "includes/nav.html" %}
 
-    <div class="main-section p-5 mt-5">
-        <div class="d-flex justify-content-between align-items-center mb-4">
-            <h2>Order #{{ order.pk }}</h2>
-            <span class="badge bg-{% if order.status == 'paid' %}success{% elif order.status == 'pending' %}warning{% elif order.status == 'cancelled' %}danger{% else %}info{% endif %} fs-6">
-                {{ order.get_status_display }}
-            </span>
-        </div>
+<div class="main-section orders-page mt-5">
 
-        <div class="card p-4 mb-3">
-            <h4>Items</h4>
-            <table class="table">
-                <thead>
-                    <tr>
-                        <th>Product</th>
-                        <th>Qty</th>
-                        <th>Price (at purchase)</th>
-                        <th>Subtotal</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {% for item in order.items.all %}
-                    <tr>
-                        <td>{{ item.product.name }}</td>
-                        <td>{{ item.quantity }}</td>
-                        <td>₦{{ item.price_at_purchase }}</td>
-                        <td>₦{{ item.get_total_price }}</td>
-                    </tr>
-                    {% endfor %}
-                </tbody>
-                <tfoot>
-                    <tr>
-                        <td colspan="3" class="fw-bold">Total</td>
-                        <td class="fw-bold">₦{{ order.total_amount }}</td>
-                    </tr>
-                </tfoot>
-            </table>
-        </div>
-
-        {% if order.shipping_address %}
-        <div class="card p-4 mb-3">
-            <h4>Shipping Address</h4>
-            <p>{{ order.shipping_address }}</p>
-        </div>
-        {% endif %}
-
-        <p class="text-muted">Placed on {{ order.created_at|date:"F j, Y, g:i a" }}</p>
-
-        {% if order.status == 'pending' %}
-        <a href="{% url 'payments:initiate_payment' order.pk %}" class="btn btn-success btn-lg">Pay Now</a>
-        {% endif %}
-
-        <a href="{% url 'orders:order_history' %}" class="btn btn-outline-secondary">← Back to Orders</a>
+    <!-- Header -->
+    <div class="order-detail-header">
+        <h2 class="order-detail-title">
+            <i class="bi bi-receipt-cutoff"></i> Order #{{ order.pk }}
+        </h2>
+        <span class="order-status-badge status-{{ order.status }}">
+            <i class="bi bi-{% if order.status == 'paid' %}check-circle-fill{% elif order.status == 'pending' %}clock-fill{% elif order.status == 'cancelled' %}x-circle-fill{% elif order.status == 'shipped' %}truck{% elif order.status == 'delivered' %}bag-check-fill{% else %}info-circle-fill{% endif %}"></i>
+            {{ order.get_status_display }}
+        </span>
     </div>
 
-    {% include "includes/footer.html" %}
+    <p class="order-detail-meta">
+        <i class="bi bi-calendar3"></i>
+        Placed on {{ order.created_at|date:"F j, Y, g:i a" }}
+    </p>
+
+    <!-- Items Card -->
+    <div class="orders-card">
+        <h3 class="orders-card-title">
+            <i class="bi bi-box-seam"></i> Items
+        </h3>
+        <div class="orders-divider"></div>
+
+        <table class="order-detail-items-table">
+            <thead>
+                <tr>
+                    <th>Product</th>
+                    <th>Qty</th>
+                    <th>Price (at purchase)</th>
+                    <th>Subtotal</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for item in order.items.all %}
+                <tr>
+                    <td>
+                        <div class="checkout-product-cell">
+                            <img src="{{ item.product.image_url }}" alt="{{ item.product.name }}" class="checkout-product-thumb">
+                            <span class="checkout-product-name">{{ item.product.name }}</span>
+                        </div>
+                    </td>
+                    <td>{{ item.quantity }}</td>
+                    <td>₦{{ item.price_at_purchase }}</td>
+                    <td>₦{{ item.get_total_price }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+            <tfoot>
+                <tr class="order-detail-total-row">
+                    <td colspan="3">Total</td>
+                    <td>₦{{ order.total_amount }}</td>
+                </tr>
+            </tfoot>
+        </table>
+    </div>
+
+    <!-- Shipping Address Card -->
+    {% if order.shipping_address %}
+    <div class="orders-card">
+        <h3 class="orders-card-title">
+            <i class="bi bi-geo-alt"></i> Shipping Address
+        </h3>
+        <div class="orders-divider"></div>
+        <p class="order-shipping-address">{{ order.shipping_address }}</p>
+    </div>
+    {% endif %}
+
+    <!-- Action Buttons -->
+    <div class="order-actions">
+        {% if order.status == 'pending' %}
+        <a href="{% url 'payments:initiate_payment' order.pk %}" class="order-pay-btn">
+            <i class="bi bi-credit-card"></i> Pay Now — ₦{{ order.total_amount }}
+        </a>
+        {% endif %}
+        <a href="{% url 'orders:order_history' %}" class="order-back-btn">
+            <i class="bi bi-arrow-left"></i> Back to Orders
+        </a>
+    </div>
+
+</div>
+
+{% include "includes/footer.html" %}
 {% endblock %}

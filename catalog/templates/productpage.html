@@ -1,30 +1,253 @@
 {% extends 'base.html' %}
 {% load static %}
 
-{% block styles %}<link rel="stylesheet" href="{% static 'Homepage_css/productpage.css' %}">{% endblock %}
+{% block styles %}
+<link rel="stylesheet" href="{% static 'Homepage_css/styles.css' %}">
+<link rel="stylesheet" href="{% static 'catalog_css/catalog.css' %}">
+{% endblock %}
 
 {% block content %}
-    <!-- Included the navigation -->
-    {% include "includes/nav.html" %}
+<!-- Included the navigation -->
+{% include "includes/nav.html" %}
 
-    <div class="main-section p-5 mt-5">
+<div class="main-section product-detail-page mt-5">
 
-        <div class="product-card card" style="" bis_skin_checked="1">
-            <img src="{{ product.image_url }}" class="card-img-top" alt="...">
-    
-            <div class="product-card-body card-body d-flex align-items-center" width="80%" height="400px" bis_skin_checked="1" >
-                <div class="mx-3">
-                    <h5 class="card-title">{{ product.name }}</h5>
-                    <p class="card-text">
-                        ${{ product.price }}
-                    </p>
-                </div>
-                <a href="{% url 'cart:cart_add' product.slug %}" class="add-to-cart-btn btn ">Add to cart</a>
+    <!-- Breadcrumb -->
+    <div class="product-breadcrumb">
+        <a href="{% url 'storefront:homepage' %}">Home</a>
+        <i class="bi bi-chevron-right"></i>
+        {% for cat in product.categories.all %}
+        <a href="{% url 'catalog:category_page' cat.name cat.slug %}">{{ cat.name }}</a>
+        {% if not forloop.last %}<i class="bi bi-chevron-right"></i>{% endif %}
+        {% endfor %}
+        {% if product.categories.all %}
+        <i class="bi bi-chevron-right"></i>
+        {% endif %}
+        <span>{{ product.name }}</span>
+    </div>
+
+    <!-- Product Detail Section -->
+    <div class="product-detail-card">
+        <!-- Product Image -->
+        <div class="product-detail-image-section">
+            <div class="product-detail-image-wrapper">
+                <img src="{{ product.image_url }}" class="product-detail-img" alt="{{ product.name }}">
             </div>
         </div>
 
+        <!-- Product Info -->
+        <div class="product-detail-info">
+            <h1 class="product-detail-name">{{ product.name }}</h1>
+
+            <!-- Categories -->
+            {% if product.categories.all %}
+            <div class="product-detail-categories">
+                {% for cat in product.categories.all %}
+                <a href="{% url 'catalog:category_page' cat.name cat.slug %}" class="product-category-tag">
+                    {{ cat.name }}
+                </a>
+                {% endfor %}
+            </div>
+            {% endif %}
+
+            <!-- Price -->
+            <div class="product-detail-price-section">
+                <span class="product-detail-price">₦{{ product.price }}</span>
+            </div>
+
+            <!-- Stock Status -->
+            <div class="product-detail-stock">
+                {% if product.stock > 0 %}
+                <span class="stock-badge in-stock">
+                    <i class="bi bi-check-circle-fill"></i> In Stock
+                </span>
+                <span class="stock-count">{{ product.stock }} units available</span>
+                {% else %}
+                <span class="stock-badge out-of-stock">
+                    <i class="bi bi-x-circle-fill"></i> Out of Stock
+                </span>
+                {% endif %}
+            </div>
+
+            <!-- Description -->
+            <div class="product-detail-description">
+                <h3 class="detail-section-title">Description</h3>
+                <p>Premium quality product available on Shopspree. Get the best deals and fast delivery on all your
+                    favourite items.</p>
+            </div>
+
+            <!-- Add to Cart / Quantity Controls -->
+            <div class="product-detail-actions" id="product-actions">
+                {% if cart_quantity > 0 %}
+                <!-- Quantity Controls (shown when item is already in cart) -->
+                <div class="quantity-control-section" id="quantity-section">
+                    <span class="quantity-label">Quantity:</span>
+                    <div class="quantity-controls">
+                        <button class="qty-btn qty-decrease" onclick="updateQuantity('decrement')" type="button">
+                            <i class="bi bi-dash"></i>
+                        </button>
+                        <span class="qty-value" id="qty-value">{{ cart_quantity }}</span>
+                        <button class="qty-btn qty-increase" onclick="updateQuantity('increment')" type="button">
+                            <i class="bi bi-plus"></i>
+                        </button>
+                    </div>
+                    <span class="cart-added-msg">
+                        <i class="bi bi-cart-check-fill"></i> In your cart
+                    </span>
+                </div>
+                {% else %}
+                <!-- Add to Cart Button (shown when item is not in cart) -->
+                <div id="add-to-cart-section">
+                    <button class="add-to-cart-btn-detail" onclick="addToCart()" type="button">
+                        <i class="bi bi-cart-plus"></i> Add to Cart
+                    </button>
+                </div>
+                <!-- Hidden Quantity Controls -->
+                <div class="quantity-control-section" id="quantity-section" style="display: none;">
+                    <span class="quantity-label">Quantity:</span>
+                    <div class="quantity-controls">
+                        <button class="qty-btn qty-decrease" onclick="updateQuantity('decrement')" type="button">
+                            <i class="bi bi-dash"></i>
+                        </button>
+                        <span class="qty-value" id="qty-value">1</span>
+                        <button class="qty-btn qty-increase" onclick="updateQuantity('increment')" type="button">
+                            <i class="bi bi-plus"></i>
+                        </button>
+                    </div>
+                    <span class="cart-added-msg">
+                        <i class="bi bi-cart-check-fill"></i> In your cart
+                    </span>
+                </div>
+                {% endif %}
+            </div>
+
+            <!-- Product Features -->
+            <div class="product-detail-features">
+                <div class="feature-item">
+                    <i class="bi bi-truck"></i>
+                    <span>Fast Delivery</span>
+                </div>
+                <div class="feature-item">
+                    <i class="bi bi-shield-check"></i>
+                    <span>Secure Payment</span>
+                </div>
+                <div class="feature-item">
+                    <i class="bi bi-arrow-counterclockwise"></i>
+                    <span>Easy Returns</span>
+                </div>
+            </div>
+        </div>
     </div>
 
-    {% include "includes/footer.html"%}
+    <!-- Related Products -->
+    {% if related_products %}
+    <div class="related-products-section">
+        <h3 class="related-products-title">You may also like</h3>
+        <div class="related-products-grid">
+            {% for rp in related_products %}
+            <a class="related-product-card" href="{% url 'catalog:product_page' rp.name rp.slug %}">
+                <div class="related-product-img-wrapper">
+                    <img src="{{ rp.image_url }}" alt="{{ rp.name }}">
+                </div>
+                <div class="related-product-info">
+                    <p class="related-product-name">{{ rp.name }}</p>
+                    <p class="related-product-price">₦{{ rp.price }}</p>
+                </div>
+            </a>
+            {% endfor %}
+        </div>
+    </div>
+    {% endif %}
+
+</div>
+
+{% include "includes/footer.html"%}
+
+<!-- AJAX Scripts for Cart Operations -->
+<script>
+    const productSlug = '{{ product.slug }}';
+    const csrfToken = '{{ csrf_token }}';
+
+    function getCookie(name) {
+        let cookieValue = null;
+        if (document.cookie && document.cookie !== '') {
+            const cookies = document.cookie.split(';');
+            for (let i = 0; i < cookies.length; i++) {
+                const cookie = cookies[i].trim();
+                if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                    break;
+                }
+            }
+        }
+        return cookieValue;
+    }
+
+    function updateCartBadge(count) {
+        const badge = document.getElementById('cart-badge');
+        if (badge) {
+            if (count > 0) {
+                badge.textContent = count;
+                badge.style.display = 'flex';
+            } else {
+                badge.style.display = 'none';
+            }
+        }
+    }
+
+    function addToCart() {
+        fetch(`/cart/add/${productSlug}/`, {
+            method: 'GET',
+            headers: {
+                'X-Requested-With': 'XMLHttpRequest',
+            }
+        })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    // Hide add-to-cart button, show quantity controls
+                    const addSection = document.getElementById('add-to-cart-section');
+                    const qtySection = document.getElementById('quantity-section');
+                    if (addSection) addSection.style.display = 'none';
+                    if (qtySection) qtySection.style.display = 'flex';
+                    document.getElementById('qty-value').textContent = data.quantity;
+                    updateCartBadge(data.cart_item_count);
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                // Fallback: redirect
+                window.location.href = `/cart/add/${productSlug}/`;
+            });
+    }
+
+    function updateQuantity(action) {
+        fetch(`/cart/update/${productSlug}/`, {
+            method: 'POST',
+            headers: {
+                'X-Requested-With': 'XMLHttpRequest',
+                'X-CSRFToken': getCookie('csrftoken'),
+                'Content-Type': 'application/x-www-form-urlencoded',
+            },
+            body: `action=${action}`
+        })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    if (data.removed) {
+                        // Item was removed — show add-to-cart button again
+                        const addSection = document.getElementById('add-to-cart-section');
+                        const qtySection = document.getElementById('quantity-section');
+                        if (addSection) addSection.style.display = 'block';
+                        if (qtySection) qtySection.style.display = 'none';
+                    } else {
+                        document.getElementById('qty-value').textContent = data.quantity;
+                    }
+                    updateCartBadge(data.cart_item_count);
+                }
+            })
+            .catch(error => console.error('Error:', error));
+    }
+</script>
 
 {% endblock %}

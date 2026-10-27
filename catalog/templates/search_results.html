@@ -1,0 +1,63 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block styles %}
+<link rel="stylesheet" href="{% static 'Homepage_css/styles.css' %}">
+<link rel="stylesheet" href="{% static 'catalog_css/catalog.css' %}">
+<link rel="stylesheet" href="{% static 'orders_css/orders.css' %}">
+{% endblock %}
+
+{% block content %}
+{% include "includes/nav.html" %}
+
+<div class="main-section search-results-page mt-5">
+
+    {% if query %}
+    <h2 class="search-results-title">Search results</h2>
+    <p class="search-results-count">
+        {{ products.count }} result{{ products.count|pluralize }} for
+        "<span class="search-results-query">{{ query }}</span>"
+    </p>
+
+    {% if products %}
+    <div class="search-results-grid">
+        {% for product in products %}
+        <a class="search-product-card" href="{% url 'catalog:product_page' product.name product.slug %}">
+            <div class="search-product-img-wrapper">
+                <img src="{{ product.image_url }}" alt="{{ product.name }}">
+            </div>
+            <div class="search-product-info">
+                <p class="search-product-name">{{ product.name }}</p>
+                <p class="search-product-price">₦{{ product.price }}</p>
+                {% if product.stock > 0 %}
+                <span class="category-stock-tag in-stock">In Stock</span>
+                {% else %}
+                <span class="category-stock-tag out-of-stock">Out of Stock</span>
+                {% endif %}
+            </div>
+        </a>
+        {% endfor %}
+    </div>
+    {% else %}
+    <div class="search-empty">
+        <i class="bi bi-search"></i>
+        <h3>No products found</h3>
+        <p>We couldn't find anything matching "{{ query }}". Try a different search term.</p>
+        <a href="{% url 'storefront:homepage' %}" class="btn shopspree-btn">
+            <i class="bi bi-shop"></i> Browse All Products
+        </a>
+    </div>
+    {% endif %}
+
+    {% else %}
+    <div class="search-empty">
+        <i class="bi bi-search"></i>
+        <h3>Search for products</h3>
+        <p>Use the search bar above to find products by name.</p>
+    </div>
+    {% endif %}
+
+</div>
+
+{% include "includes/footer.html" %}
+{% endblock %}
